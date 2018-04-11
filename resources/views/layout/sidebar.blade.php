@@ -9,24 +9,11 @@
         <img src="{{ asset('bower_components/admin-lte/dist/img/user2-160x160.jpg')}}" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
-        <p>Alexander Pierce</p>
+        <p>{{ Auth::user()->name }}</p>
         <!-- Status -->
         <a href="javascript:void(0)"><i class="fa fa-circle text-success"></i> Online</a>
       </div>
     </div>
-
-    <!-- search form (Optional) -->
-    {{-- <form action="#" method="get" class="sidebar-form">
-      <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="Search...">
-        <span class="input-group-btn">
-            <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-            </button>
-          </span>
-      </div>
-    </form> --}}
-    <!-- /.search form -->
-
     <!-- Sidebar Menu -->
     <ul class="sidebar-menu" data-widget="tree">
       <li class="header">Main Menu</li>
@@ -34,30 +21,52 @@
       <li class="active"><a href="/"><i class="fa fa-home"></i> <span>Dashboard</span></a></li>
       <li class="treeview">
         <a href="#">
-          <i class="fa fa-envelope"></i> <span>Mailbox</span>
+          <i class="fa fa-address-card"></i> <span>Customer</span>
           <span class="pull-right-container">
             <i class="fa fa-angle-left pull-right"></i>
           </span>
         </a>
         <ul class="treeview-menu">
           <li>
-            <a href="#">Inbox</a>
+            <a href="#">Add Customer</a>
           </li>
-          <li><a href="#">Quick Compose</a></li>
+          <li><a href="#">View Customer</a></li>
         </ul>
       </li>
       <li class="treeview">
-        <a href="#"><i class="fa fa-ticket"></i> <span>Leave</span>
+        <a href="#"><i class="fa fa-cube"></i> <span>Project</span>
           <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="#">Add Leave</a></li>
-          <li><a href="#">View Leave</a></li>
+          <li><a href="#">Add Project</a></li>
+          <li><a href="#">View Project</a></li>
         </ul>
       </li>
-      <li><a href="#"><i class="fa fa-calendar"></i> <span>Official Leave Calendar</span></a></li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-credit-card"></i> <span>Invoices</span>
+          <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="#">Add Project Invoices</a></li>
+          <li><a href="#">Add Manual Invoices</a></li>
+          <li><a href="#">View Invoices</a></li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-cogs"></i> <span>Utilities</span>
+          <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="#"></a></li>
+        </ul>
+      </li>
+      <li class="header">Reports</li>
     </ul>
     <!-- /.sidebar-menu -->
   </section>

@@ -14,7 +14,6 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
-Route::get('/lock', function () {
-    return view('lock');
-});
+Auth::routes();
+Route::get('/', 'HomeController@index')->name('home');
+Route::resource('customer', 'CustomerController');
