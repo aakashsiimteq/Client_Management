@@ -13,9 +13,9 @@ class CustomerController extends Controller
      */
     public function index()
     {
-      $data = array('page_title'=>$page_title, 'page_description'=>$page_description);
-      return view('customer.index')
-            ->with($data);
+      $page_title = 'Customer';
+      $page_description = 'View Customer';
+      return view('customer.index',compact('page_title','page_description'));
     }
 
     /**
@@ -26,6 +26,9 @@ class CustomerController extends Controller
     public function create()
     {
         //
+        $page_title = 'Customer';
+        $page_description = 'Create customer';
+        return view('customer.create',compact('page_title','page_description'));
     }
 
     /**

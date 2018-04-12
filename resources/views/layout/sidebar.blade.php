@@ -28,9 +28,9 @@
         </a>
         <ul class="treeview-menu">
           <li>
-            <a href="#">Add Customer</a>
+            <a href="{{route('customer.create')}}">Add Customer</a>
           </li>
-          <li><a href="#">View Customer</a></li>
+          <li><a href="{{route('customer.index')}}">View Customer</a></li>
         </ul>
       </li>
       <li class="treeview">
