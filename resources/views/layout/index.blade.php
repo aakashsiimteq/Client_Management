@@ -65,17 +65,20 @@ desired effect
 
       <!-- Content Wrapper. Contains page content -->
       <div class="content-wrapper">
+        @if(Session::has('success'))
+        <div style="padding: 20px 30px; z-index: 999999; font-size: 16px; font-weight: 600; rgb(0,128,0.8)">
+          <a class="pull-right" href="#" data-toggle="tooltip" data-placement="left" title="" style="color: rgb(255, 255, 255); font-size: 20px;" data-original-title="Never show me this again!">×</a>
+          <a style="color: rgba(255, 255, 255, 0.9); display: inline-block; margin-right: 10px; text-decoration: none;">{{Session::get('success')}}</a>
+          <a class="btn btn-default btn-sm" href="#" style="margin-top: -5px; border: 0px; box-shadow: none; font-weight: 600; background: rgb(255, 255, 255);">Make invoice</a>
+        </div>
+        @endif
         <!-- Content Header (Page header) -->
         <section class="content-header">
           <h1>
             {{ $page_title or "Dashboard" }}
             <small>{{ $page_description or "Everything at quick glance" }}</small>
           </h1>
-          <!-- You can dynamically generate breadcrumbs here -->
-          <ol class="breadcrumb">
-            <li><a href="#"><i class="fa fa-dashboard"></i> Level</a></li>
-            <li class="active">Here</li>
-          </ol>
+         
         </section>
 
         <!-- Main content -->
