@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Project;
 use App\Customer;
+use Session;
 
 class ProjectController extends Controller
 {
@@ -66,7 +67,7 @@ class ProjectController extends Controller
         $project->project_estimate_cost = $request->project_estimate_cost;
         $project->save();
 
-        
+        Session::flash('success', 'Project created successfully');
 
         return redirect()->route('project.index');
     }

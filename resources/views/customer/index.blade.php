@@ -33,7 +33,7 @@
                         {{Form::submit('Delete', ['class' => 'btn btn-danger btn-sm'])}}
                     {!!Form::close()!!}
                   </div>
-                  {!!Html::linkRoute('project.create', 'Add Project', array($customer->customer_id), array('class' => 'btn btn-warning btn-sm'))!!}
+                  {!!Html::linkRoute('customer-project.edit', 'Add Project', array($customer->customer_id), array('class' => 'btn btn-warning btn-sm'))!!}
                   
                 </td>
             </tr>

@@ -14,17 +14,20 @@
         {{Form::label('project_no', 'Project no.')}}
         {{Form::text('project_no', $project_number ,['class' => 'form-control', 'for' => 'project_no', 'readonly'=>'true'])}}
     </div>
-    <div class="col-md-8">
-        {{Form::label('customer_id', 'Customer Name')}}
-        {{Form::text('customer_id', null ,['class' => 'form-control'])}}
+    <div class="col-md-4">
+        {{Form::label('customer_id', 'Customer no.')}}
+        {{Form::text('customer_id', $customer->customer_number ,['class' => 'form-control'])}}
     </div>
-    
+    <div class="col-md-4">
+        {{Form::label('customer_name', 'Customer name')}}
+        {{Form::text('customer_name', $customer->customer_name ,['class' => 'form-control'])}}
+    </div>
 </div>
 
 <div class="row" style="margin-top:2%;">
     <div class="col-md-4">
         {{Form::label('project_type', 'Project Type')}}
-        {{Form::text('project_type', "" ,['class' => 'form-control', 'for' => 'project_type'])}}
+        {{Form::select('project_type', ['Website' => 'Website', 'Software' => 'Software', 'Web service' => 'Web service', 'Cloud' => 'Cloud', 'Other' => 'Other'], null ,['class' => 'form-control'])}}
     </div>
     <div class="col-md-4">
         {{Form::label('project_name', 'Project Name')}}
@@ -32,8 +35,7 @@
     </div>
     <div class="col-md-4">
         {{Form::label('project_status', 'Project Status')}}
-        {{Form::text('project_status', "",['class' => 'form-control', 'for' => 'project_status'])}} 
-        
+        {{Form::select('project_status', ['On going' => 'On going', 'Complete' => 'Complete'], null ,['class' => 'form-control'])}}
     </div>
 </div>
 
@@ -69,7 +71,7 @@
         
     <div class="row" style="margin-top:2%;">
         <div class="col-md-12">
-            {{Form::submit('Add', ['class' => 'btn btn-primary btn-block'])}}
+            {{Form::submit('Create', ['class' => 'btn btn-primary btn-block'])}}
         </div>
     </div>
 

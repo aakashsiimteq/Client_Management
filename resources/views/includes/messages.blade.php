@@ -13,6 +13,11 @@
     <strong>{{Session::get('updated')}}</strong>
   </div>
 @endif
+@if(Session::has('success'))
+  <div class="alert alert-success" role="alert">
+    <strong>{{Session::get('success')}}</strong>
+  </div>
+@endif
 @if(Session::has('errors'))
   <div class="alert alert-danger" role="alert">
     @foreach ($iterable as $key => $value)
