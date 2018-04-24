@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="{{ asset("bower_components/Ionicons/css/ionicons.min.css")}}">
   <!-- Theme style -->
   <link rel="stylesheet" href="{{ asset ("bower_components/admin-lte/dist/css/AdminLTE.min.css")}}">
+  <link rel="stylesheet" type="text/css" href="{{ asset ("css/style.css") }}">
   <!-- AdminLTE Skins. We have chosen the skin-blue for this starter
         page. However, you can choose any other skin. Make sure you
         apply the skin class to the body tag so the changes take effect. -->
@@ -31,10 +32,11 @@
   <link rel="stylesheet"
         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition login-page">
+<body class="hold-transition login-page" style="background:#000000;">
 <div class="login-box">
   <div class="login-logo">
-    <a href="/"><b>Siimteq</b>CMS</a>
+    <a href="/"><img src="{{ asset ("img/logo.png")}}"></a>
+    
   </div>
   <!-- /.login-logo -->
   <div class="login-box-body">
@@ -64,7 +66,7 @@
           <div class="col-xs-8">
           </div>
           <div class="col-xs-4">
-            <button type="submit" class="btn btn-primary btn-block btn-flat">{{ __('Login') }}</button>
+            <button type="submit" class="btn btn-block btn-flat login-btn">{{ __('Login') }}</button>
           </div>
         </div>
         <div class="row" style="margin-top:15px;">
