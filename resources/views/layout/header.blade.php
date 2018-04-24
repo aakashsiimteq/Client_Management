@@ -4,9 +4,9 @@
   <!-- Logo -->
   <a href="/" class="logo">
     <!-- mini logo for sidebar mini 50x50 pixels -->
-    <span class="logo-mini"><b>C</b>MS</span>
+    <span class="logo-mini" ><b>C</b>MS</span>
     <!-- logo for regular state and mobile devices -->
-    <span class="logo-lg"><b>Siimteq</b> CMS</span>
+    <span class="logo-lg"><img width="100" height="50" style="margin-bottom:10px;" src="{{ asset ("img/logo.png")}}">CMS</span>
   </a>
 
   <!-- Header Navbar -->

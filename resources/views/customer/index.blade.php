@@ -23,10 +23,14 @@
                 <td>{{$customer->customer_abn_no}}</td>
                 <td>{{$customer->customer_email}}</td>
                 <td>{{$customer->customer_contact_no}}</td>
-                <td><button class="btn btn-sm btn-warning" style="margin-right:3px;">Edit</button><button class="btn btn-sm btn-danger">Delete</button></td>
+                <td>
+                  <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#edit" style="margin-right:3px;">Edit</button>
+                  <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#delete">Delete</button>
+                </td>
             </tr>
         @endforeach
     </tbody>
 </table>
+
 
 @endsection

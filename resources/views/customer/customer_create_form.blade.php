@@ -1,7 +1,7 @@
 <div class="row">
     <div class="col-md-4">
         {{Form::label('customer_no', 'Customer no.')}}
-        {{Form::text('customer_no', null ,['class' => 'form-control', 'for' => 'customer_no', 'disabled'])}}
+        {{Form::text('customer_no', $cust_no ,['class' => 'form-control', 'for' => 'customer_no', 'readonly'=>'true'])}}
     </div>
     <div class="col-md-4">
         {{Form::label('customer_name', 'Name')}}

@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Customer;
-use Session;
+use App\Project;
 
-class CustomerController extends Controller
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,13 +14,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-      $page_title = 'Customer';
-      $page_description = 'View Customer';
-      $customers = Customer::all();
-   
-    
-
-      return view('customer.index',compact('page_title','page_description', 'customers'));
+        //
     }
 
     /**
@@ -31,18 +24,17 @@ class CustomerController extends Controller
      */
     public function create()
     {
-        //
-        $page_title = 'Customer';
-        $page_description = 'Create customer';
-        $cust_no = Customer::max('customer_number');
+        $page_title = 'Project';
+        $page_description = 'Create Project';
+        // $project_no = Project::max('project_number');
                         
-        if($cust_no == NULL){
-            $cust_no = "101";
+        // if($project_no == NULL){
+        //     $project_no = "1001";
         
-        }else{
-            $cust_no = $cust_no + 1;
-        }
-        return view('customer.create',compact('page_title','page_description','cust_no'));
+        // }else{
+        //     $project_no = $project_no + 1;
+        // }
+        return view('projects.create',compact('page_title','page_description','project_no'));
     }
 
     /**
@@ -53,21 +45,23 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $customer = new Customer();
-        $customer->customer_number = $request->customer_no;
-        $customer->customer_name = $request->customer_name;
-        $customer->customer_type = $request->customer_type;
-        $customer->customer_abn_no = $request->customer_abn_no;
-        $customer->customer_email = $request->customer_email;
-        $customer->customer_contact_no = $request->customer_contact_no;
-        $customer->customer_physical_address = $request->customer_physical_address;
-        $customer->customer_billing_address = $request->customer_billing_address;
-        $customer->save();
 
-        Session::flash('registered', 'Registered successfully!');
+        $project = new Project;
+        $project->project_number = $request->project_no;
+        $project->customer_id = $request->customer_id;
+        $project->project_name = $request->project_name;
+        $project->project_type = $request->project_type;
+        $project->project_details = $request->project_details;
+        $project->project_status = $request->project_status;
+        $project->project_start_date = $request->project_start_date;
+        $project->project_end_date = $request->project_end_date;
+        $project->project_per_hour_cost = $request->project_per_hour_cost;
+        $project->project_estimate_cost = $request->project_estimate_cost;
+        $project->save();
 
-        return redirect()->route('customer.index');
+        
 
+        return redirect()->route('project.index');
     }
 
     /**
