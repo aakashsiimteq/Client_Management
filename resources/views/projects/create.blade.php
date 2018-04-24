@@ -1,5 +1,7 @@
 @extends('layout.index') @section('title', 'Project')
-
+@php
+    $project_number = 'PR'.$project_number;
+@endphp
 @section('content')
 <div class="panel panel-primary">
   <div class="panel-heading">
@@ -10,7 +12,7 @@
     <div class="row">
     <div class="col-md-4">
         {{Form::label('project_no', 'Project no.')}}
-        {{Form::text('project_no', 12 ,['class' => 'form-control', 'for' => 'project_no', 'readonly'=>'true'])}}
+        {{Form::text('project_no', $project_number ,['class' => 'form-control', 'for' => 'project_no', 'readonly'=>'true'])}}
     </div>
     <div class="col-md-8">
         {{Form::label('customer_id', 'Customer Name')}}

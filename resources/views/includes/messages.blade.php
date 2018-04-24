@@ -9,7 +9,7 @@
   </div>
 @endif
 @if(Session::has('updated'))
-  <div class="alert alert-warning" role="alert">
+  <div class="alert alert-success" role="alert">
     <strong>{{Session::get('updated')}}</strong>
   </div>
 @endif

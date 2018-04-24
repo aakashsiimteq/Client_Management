@@ -18,9 +18,6 @@ class CustomerController extends Controller
       $page_title = 'Customer';
       $page_description = 'View Customer';
       $customers = Customer::all();
-   
-    
-
       return view('customer.index',compact('page_title','page_description', 'customers'));
     }
 
@@ -89,7 +86,10 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page_title = 'Customer';
+        $page_description = 'Edit customer';
+        $customer = Customer::find($id);
+        return view('customer.edit_customer', compact('page_title','page_description'))->withCustomer($customer);
     }
 
     /**
@@ -101,7 +101,21 @@ class CustomerController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $customer = Customer::find($id);
+        $customer->customer_number = $request->customer_no;
+        $customer->customer_name = $request->customer_name;
+        $customer->customer_type = $request->customer_type;
+        $customer->customer_abn_no = $request->customer_abn_no;
+        $customer->customer_email = $request->customer_email;
+        $customer->customer_contact_no = $request->customer_contact_no;
+        $customer->customer_physical_address = $request->customer_physical_address;
+        $customer->customer_billing_address = $request->customer_billing_address;
+        $customer->save();
+
+        Session::flash('updated', 'Updated successfully!');
+
+        return redirect()->route('customer.index');
+        
     }
 
     /**
@@ -112,6 +126,10 @@ class CustomerController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $customer = Customer::find($id);
+        $customer->delete();
+        Session::flash('deleted', 'Deleted successfully!');
+
+        return redirect()->route('customer.index');
     }
 }
