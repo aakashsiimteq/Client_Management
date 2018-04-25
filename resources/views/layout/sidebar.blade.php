@@ -41,7 +41,7 @@
         </a>
         <ul class="treeview-menu">
           <li><a href="{{route('project.create')}}">Add Project</a></li>
-          <li><a href="#">View Project</a></li>
+          <li><a href="{{route('project.index')}}">View Project</a></li>
         </ul>
       </li>
       <li class="treeview">

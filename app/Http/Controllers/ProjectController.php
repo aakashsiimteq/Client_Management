@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Project;
+use App\Customer;
+use Session;
 
 class ProjectController extends Controller
 {
@@ -14,7 +16,10 @@ class ProjectController extends Controller
      */
     public function index()
     {
-        //
+        $page_title = 'Projects';
+        $page_description = 'View Project';
+        $projects = Project::all();
+        return view('projects.index',compact('page_title','page_description', 'projects'));
     }
 
     /**
@@ -24,17 +29,20 @@ class ProjectController extends Controller
      */
     public function create()
     {
+        
+        $project_number = Project::max('project_number');
+                        
+        if($project_number == null){
+            $project_number = "1001";
+        
+        }else{
+            $project_number = $project_number + 1;
+        }
+
         $page_title = 'Project';
         $page_description = 'Create Project';
-        // $project_no = Project::max('project_number');
-                        
-        // if($project_no == NULL){
-        //     $project_no = "1001";
-        
-        // }else{
-        //     $project_no = $project_no + 1;
-        // }
-        return view('projects.create',compact('page_title','page_description','project_no'));
+        $customers = Customer::all();
+        return view('projects.create',compact('page_title','page_description','project_number'));
     }
 
     /**
@@ -59,7 +67,7 @@ class ProjectController extends Controller
         $project->project_estimate_cost = $request->project_estimate_cost;
         $project->save();
 
-        
+        Session::flash('success', 'Project created successfully');
 
         return redirect()->route('project.index');
     }

@@ -19,3 +19,4 @@ Route::get('/', 'HomeController@index')->name('home');
 Route::resource('customer', 'CustomerController');
 Route::resource('project', 'ProjectController');
 Route::resource('invoice', 'InvoiceController');
+Route::resource('customer-project', 'ProjectForCustomerController');
