@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Project;
 use App\Customer;
 use Session;
+use DB;
 
 class ProjectController extends Controller
 {
@@ -18,7 +19,9 @@ class ProjectController extends Controller
     {
         $page_title = 'Projects';
         $page_description = 'View Project';
-        $projects = Project::all();
+        $projects = DB::table('projects')
+                    ->leftJoin('customers', 'customers.customer_number', '=', 'projects.customer_id')
+                    ->get();
         return view('projects.index',compact('page_title','page_description', 'projects'));
     }
 
@@ -91,7 +94,12 @@ class ProjectController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page_title = 'Project';
+        $page_description = 'Edit project';
+        $project = DB::table('projects')
+                    ->leftJoin('customers', 'customers.customer_number', '=', 'projects.customer_id')
+                    ->first();
+        return view('projects.edit_project', compact('page_title','page_description'))->withProject($project);
     }
 
     /**
@@ -103,7 +111,22 @@ class ProjectController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $project = Project::find($id);
+        $project->project_number = $request->project_no;
+        $project->customer_id = $request->customer_id;
+        $project->project_name = $request->project_name;
+        $project->project_type = $request->project_type;
+        $project->project_details = $request->project_details;
+        $project->project_status = $request->project_status;
+        $project->project_start_date = $request->project_start_date;
+        $project->project_end_date = $request->project_end_date;
+        $project->project_per_hour_cost = $request->project_per_hour_cost;
+        $project->project_estimate_cost = $request->project_estimate_cost;
+        $project->save();
+
+        Session::flash('updated', 'Project updated successfully');
+
+        return redirect()->route('project.index');
     }
 
     /**
@@ -114,6 +137,11 @@ class ProjectController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $project = Project::find($id);
+        $project->delete();
+
+        Session::flash('deleted', 'Project deleted successfully');
+
+        return redirect()->route('project.index');
     }
 }
