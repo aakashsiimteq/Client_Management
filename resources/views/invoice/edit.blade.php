@@ -1,10 +1,10 @@
-@extends('layout.index') @section('title', 'Make Invoice')
+@extends('layout.index') @section('title', 'Edit Invoice')
 
 @section('content')
 
 <div class="panel panel-primary">
     <div class="panel-heading">
-      <h3 class="panel-title">Make Invoice</h3>
+      <h3 class="panel-title">Edit Invoice</h3>
     </div>
     <div class="panel-body">
         {!! Form::model($invoice, ['route' => ['invoice.update', $invoice->invoice_id], 'method' => 'PUT']) !!}
@@ -66,8 +66,8 @@
                         <td>&nbsp;</td>
                         <td class="text-right"><b>Grand total:</b></td>
                         <td class="text-left" id="invoice_grand_total">
-                            {{Form::hidden('invoice_grand_total', $customer_invoice->project_estimate_cost)}}
-                            A$ {{number_format($customer_invoice->project_estimate_cost, 2, '.', ',')}}
+                            {{Form::hidden('invoice_grand_total', $customer_invoice->invoice_final_cost)}}
+                            A$ {{number_format($customer_invoice->invoice_final_cost, 2, '.', ',')}}
                         </td>
                         <td>&nbsp;</td>
                     </tr>
@@ -84,8 +84,8 @@
                     {{Form::label('invoice_copy_type', 'Invoice Copy Type')}}
                     <select name="invoice_copy_type" id="invoice_copy_type" class="form-control">
                         <option selected disabled>Select invoice copy type</option>
-                        <option value="By Hand">By Hand</option>
-                        <option value="By Email">By Email</option>
+                        <option value="ByHand">By Hand</option>
+                        <option value="ByEmail">By Email</option>
                     </select>
                 </div>
                 <div class="col-md-4">
@@ -99,9 +99,12 @@
                     {{Form::textarea('invoice_comments', null, ['class' => 'form-control', 'for' => 'invoice_comments'])}}
                 </div>
             </div>
-            <div class="row" style="margin-top:2%">
-                <div class="col-md-12">
-                    {{Form::submit('Save', ['class' => 'btn btn-primary btn-block'])}}
+            <div class="row" style="margin-top: 2%;">
+                <div class="col-md-6">
+                    {{Form::submit('Update', ['class' => 'btn btn-primary btn-block'])}}
+                </div>
+                <div class="col-md-6">
+                    {!!Html::linkRoute('invoice.index', 'Cancel', null,['class' => 'btn btn-danger btn-block'])!!}
                 </div>
             </div>
         {!!Form::close()!!}

@@ -40,7 +40,6 @@
             </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="{{route('project.create')}}">Add Project</a></li>
           <li><a href="{{route('project.index')}}">View Project</a></li>
         </ul>
       </li>
@@ -51,7 +50,6 @@
             </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="{{route('invoice.create')}}">Add Project Invoices</a></li>
           <li><a href="#">Add Manual Invoices</a></li>
           <li><a href="{{route('invoice.index')}}">View Invoices</a></li>
         </ul>

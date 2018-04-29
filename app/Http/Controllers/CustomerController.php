@@ -8,6 +8,12 @@ use Session;
 
 class CustomerController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,7 @@ class CustomerController extends Controller
     public function index()
     {
       $page_title = 'Customer';
-      $page_description = 'View Customer';
+      $page_description = 'Customer listing';
       $customers = Customer::all();
       return view('customer.index',compact('page_title','page_description', 'customers'));
     }

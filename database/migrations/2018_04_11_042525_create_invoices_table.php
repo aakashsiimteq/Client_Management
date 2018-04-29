@@ -26,6 +26,7 @@ class CreateInvoicesTable extends Migration
             $table->enum('invoice_payment_terms', ['Credit card', 'Cash', 'Cheque', 'Other']);
             $table->string('invoice_billing_address');
             $table->text('invoice_comments')->nullable(true);
+            $table->text('invoice_reference')->nullable(true);
             $table->timestamps();
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';
