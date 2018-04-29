@@ -10,6 +10,12 @@ use DB;
 
 class ProjectController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -96,8 +102,10 @@ class ProjectController extends Controller
     {
         $page_title = 'Project';
         $page_description = 'Edit project';
+        $customer_project = Project::find($id);
         $project = DB::table('projects')
                     ->leftJoin('customers', 'customers.customer_number', '=', 'projects.customer_id')
+                    ->where('projects.project_id', $customer_project->project_id)
                     ->first();
         return view('projects.edit_project', compact('page_title','page_description'))->withProject($project);
     }

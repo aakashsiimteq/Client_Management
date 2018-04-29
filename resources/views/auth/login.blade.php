@@ -74,6 +74,10 @@
               {{ __('Forgot Your Password?') }}
           </a>
         </div>
+        <hr>
+        <div class="row text-center" style="margin-top: 15px;">
+          <a href="{{route('register')}}" class="btn btn-link ">Register</a>
+        </div>
     </form>
   </div>
   <!-- /.login-box-body -->

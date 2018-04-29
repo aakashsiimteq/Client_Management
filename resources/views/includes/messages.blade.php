@@ -3,6 +3,11 @@
     <strong>{{Session::get('registered')}}</strong>
   </div>
 @endif
+@if(Session::has('invoiced'))
+<div class="alert alert-success" role="alert">
+    <strong>{{Session::get('invoiced')}}</strong>
+  </div>
+@endif
 @if(Session::has('deleted'))
   <div class="alert alert-success" role="alert">
     <strong>{{Session::get('deleted')}}</strong>
