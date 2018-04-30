@@ -106,6 +106,7 @@ desired effect
       return true;
     }
     </script>
+    @yield('custom_scripts')
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.
           Both of these plugins are recommended to enhance the
