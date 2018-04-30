@@ -52,6 +52,7 @@
         <ul class="treeview-menu">
           <li><a href="#">Add Manual Invoices</a></li>
           <li><a href="{{route('invoice.index')}}">View Invoices</a></li>
+          <li><a href="{{route('custom-invoice.index')}}">View Custom Invoices</a></li>
         </ul>
       </li>
       <li class="treeview">
