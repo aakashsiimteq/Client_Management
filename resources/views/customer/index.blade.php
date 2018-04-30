@@ -28,8 +28,8 @@
                     <td>{{$customer->customer_number}}</td>
                     <td>{{$customer->customer_name}}</td>
                     <td>{{$customer->customer_type}}</td>
-                    <td>{{$customer->customer_abn_no}}</td>
-                    <td>{{$customer->customer_email}}</td>
+                    <td>{{$customer->customer_abn_no or '-'}}</td>
+                    <td>{{$customer->customer_email or '-'}}</td>
                     <td>{{$customer->customer_contact_no}}</td>
                     <td>
                       {!!Html::linkRoute('customer.edit', 'Edit', array($customer->customer_id), array('class' => 'btn btn-primary btn-sm'))!!}

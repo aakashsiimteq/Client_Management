@@ -3,6 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Customer;
+use App\CustomInvoice;
+use App\Invoice;
+use App\Project;
 
 class HomeController extends Controller
 {
@@ -23,6 +27,12 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('welcome');
+        $page_title = '';
+        $page_description = '';
+        $project_count = Project::get()->count();
+        $invoice_count = Invoice::get()->count();
+        $custom_invoice_count = CustomInvoice::get()->count();
+        $customer_count = Customer::get()->count();
+        return view('welcome', compact('page_title', 'page_description', 'project_count', 'invoice_count', 'custom_invoice_count', 'customer_count'));
     }
 }

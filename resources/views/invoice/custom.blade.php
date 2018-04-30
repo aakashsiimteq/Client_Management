@@ -65,68 +65,75 @@
         </div>
         </div>
     </div>
-    <table class="table">
-        <thead>
-            <th>Sr no.</th>
-            <th>Invoice id.</th>
-            <th>Customer name</th>
-            <th>Invoice amount</th>
-            <th>Invoice date</th>
-            <th>Invoice status</th>
-            <th>&nbsp;</th>
-        </thead>
-        <tbody>
-            @foreach($unique_invoice as $invoice)
-                <tr>
-                    <td>{{++$count}}</td>
-                    <td>{{$invoice->custom_invoice_number}}</td>
-                    <td>{{$invoice->custom_customer_name}}</td>
-                    <td>A$ {{number_format($invoice->custom_invoice_amount, 2, '.', ',')}}</td>
-                    <td>{{$invoice->created_at}}</td>
-                    <td></td>
-                    <td>
-                        {!!Html::linkRoute('custom-invoice.edit', 'Edit', array($invoice->custom_invoice_id), array('class' => 'btn btn-primary btn-sm'))!!}
-                            <div style="display: inline-block">
-                                {!!Form::open(['route' => ['custom-invoice.destroy', $invoice->custom_invoice_id], 'method' => 'DELETE'])!!}
-                                    {{Form::submit('Delete', ['class' => 'btn btn-danger btn-sm'])}}
-                                {!!Form::close()!!}
-                            </div>
-                        <button class="btn btn-sm btn-warning">Print</button>
-                    </td>
-                </tr>
-                <div id="collapseExample" class="collapse">
-                    <thead style="color: gray;">
-                        <th></th>
-                        <th>Sr.no.</th>
-                        <th>Product name</th>
-                        <th>Product quantity</th>
-                        <th>Product cost</th>
-                    </thead>
-                    <?php $total = 0; ?>
-                    @foreach($custom_invoices as $cust_invo)
-                        @if($cust_invo->custom_invoice_number == $invoice->custom_invoice_number)
-                            <?php $total = $total + $cust_invo->custom_invoice_product_cost;?>
+    <div class="panel panel-primary" style="margin-top:40px">
+        <div class="panel-heading">
+            <h3 class="panel-title">View Custom Invoices</h3>
+        </div>
+        <div class="panel-body">
+            <table class="table text-center table-bordered table-hover">
+                <thead>
+                    <th>Sr no.</th>
+                    <th>Invoice id.</th>
+                    <th>Customer name</th>
+                    <th>Invoice amount</th>
+                    <th>Invoice date</th>
+                    <th>Invoice status</th>
+                    <th>&nbsp;</th>
+                </thead>
+                <tbody>
+                    @foreach($unique_invoice as $invoice)
+                        <tr>
+                            <td>{{++$count}}</td>
+                            <td>{{$invoice->custom_invoice_number}}</td>
+                            <td>{{$invoice->custom_customer_name}}</td>
+                            <td>A$ {{number_format($invoice->custom_invoice_amount, 2, '.', ',')}}</td>
+                            <td>{{$invoice->created_at}}</td>
+                            <td></td>
+                            <td>
+                                {!!Html::linkRoute('custom-invoice.edit', 'Edit', array($invoice->custom_invoice_id), array('class' => 'btn btn-primary btn-sm'))!!}
+                                    <div style="display: inline-block">
+                                        {!!Form::open(['route' => ['custom-invoice.destroy', $invoice->custom_invoice_id], 'method' => 'DELETE'])!!}
+                                            {{Form::submit('Delete', ['class' => 'btn btn-danger btn-sm'])}}
+                                        {!!Form::close()!!}
+                                    </div>
+                                <button class="btn btn-sm btn-warning">Print</button>
+                            </td>
+                        </tr>
+                        <div id="collapseExample" class="collapse">
+                            <thead style="color: gray;">
+                                <th></th>
+                                <th>Sr.no.</th>
+                                <th>Product name</th>
+                                <th>Product quantity</th>
+                                <th>Product cost</th>
+                            </thead>
+                            <?php $total = 0; ?>
+                            @foreach($custom_invoices as $cust_invo)
+                                @if($cust_invo->custom_invoice_number == $invoice->custom_invoice_number)
+                                    <?php $total = $total + $cust_invo->custom_invoice_product_cost;?>
+                                    <tr style="color: gray; font-style: italic">
+                                        <td>&nbsp;</td>
+                                        <td>{{++$count1}}</td>
+                                        <td>{{$cust_invo->custom_invoice_product_name}}</td>
+                                        <td>{{$cust_invo->custom_invoice_product_quantity}}</td>
+                                        <td>A$ {{number_format($cust_invo->custom_invoice_product_cost, 2, '.', ',')}}</td>
+                                    </tr>
+                                @endif
+                            @endforeach
+                            <?php $count1 = 0;?>
                             <tr style="color: gray; font-style: italic">
                                 <td>&nbsp;</td>
-                                <td>{{++$count1}}</td>
-                                <td>{{$cust_invo->custom_invoice_product_name}}</td>
-                                <td>{{$cust_invo->custom_invoice_product_quantity}}</td>
-                                <td>A$ {{number_format($cust_invo->custom_invoice_product_cost, 2, '.', ',')}}</td>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td class="text-right font-weight-bold">Total:</td>
+                                <td>A$ {{number_format($total, 2, '.', ',')}}</td>
                             </tr>
-                        @endif
+                        </div>
+                        
                     @endforeach
-                    <?php $count1 = 0;?>
-                    <tr style="color: gray; font-style: italic">
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td>&nbsp;</td>
-                        <td class="text-right font-weight-bold">Total:</td>
-                        <td>A$ {{number_format($total, 2, '.', ',')}}</td>
-                    </tr>
-                </div>
+                </tbody>
                 
-            @endforeach
-        </tbody>
-        
-    </table>
+            </table>
+        </div>
+    </div>
 @endsection
