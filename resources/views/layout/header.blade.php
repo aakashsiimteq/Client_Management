@@ -1,5 +1,5 @@
 <!-- Main Header -->
-<header class="main-header">
+<header class="main-header" style="border-color: black">
 
   <!-- Logo -->
   <a href="/" class="logo">
@@ -12,7 +12,7 @@
   <!-- Header Navbar -->
   <nav class="navbar navbar-static-top" role="navigation">
     <!-- Sidebar toggle button-->
-    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button" style="border-color: black">
       <span class="sr-only">Toggle navigation</span>
     </a>
     <!-- Navbar Right Menu -->
@@ -29,7 +29,7 @@
           </a>
           <ul class="dropdown-menu">
             <!-- The user image in the menu -->
-            <li class="user-header">
+            <li class="user-header" style="background-color: black;">
               <img src="{{ asset("bower_components/admin-lte/dist/img/user2-160x160.jpg")}}" class="img-circle" alt="User Image">
 
               <p>
@@ -42,7 +42,7 @@
             <li class="user-footer">
 
               <div class="pull-right">
-                <a href="href="{{ route('logout') }}"" class="btn btn-default btn-flat" onclick="event.preventDefault();
+                <a href="href="{{ route('logout') }}"" class="btn btn-primary login-btn btn-flat" onclick="event.preventDefault();
                               document.getElementById('logout-form').submit();">
                   <i class="fa fa-sign-out"></i> Sign out
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

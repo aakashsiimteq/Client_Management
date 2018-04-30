@@ -69,7 +69,7 @@
                     @endfor
 
                     <tr class="gmattersmallest">
-                        <td height="20" align="right" style="border:1px solid #000;" colspan="3"> GST : </td>
+                        <td height="20" align="right" style="border:1px solid #000;" colspan="3"> GST (%) : &nbsp;</td>
                         <td height="20" align="right" style="border:1px solid #000;">{{number_format($invoice_data->invoice_gst_rate,2)}}</td>
                     </tr>
                     <?php
@@ -78,8 +78,8 @@
 
                     ?>
                     <tr class="gmattersmallest">
-                        <td height="20" align="right" style="border:1px solid #000;" colspan="3"> Total : </td>
-                        <td height="20" align="right" style="border:1px solid #000;">{{number_format($total,2)}}</td>
+                        <td height="20" align="right" style="border:1px solid #000;" colspan="3"> Total amount : &nbsp;</td>
+                        <td height="20" align="right" style="border:1px solid #000;">A$ {{number_format($invoice_data->invoice_grand_total,2, '.', ',')}}</td>
                     </tr>
 
           @endif

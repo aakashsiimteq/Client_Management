@@ -34,7 +34,7 @@
                         <td>{{Form::text('project_type', $customer_invoice->project_type ,['class' => 'form-control', 'for' => 'project_type', 'style' => 'border: none; background-color: white;'])}}</td>
                         <td>{{Form::text('project_id', $customer_invoice->project_name ,['class' => 'form-control', 'for' => 'project_name', 'style' => 'border: none; background-color: white;'])}}</td>
                         <td>{{Form::text('project_per_hour_cost', number_format($customer_invoice->project_per_hour_cost, 2, '.', '') ,['class' => 'form-control', 'for' => 'project_name', 'style' => 'border: none; background-color: white;'])}}</td>
-                        <td>{{Form::text('project_estimated_cost', number_format($customer_invoice->project_estimate_cost, 2, '.', '') ,['class' => 'form-control', 'for' => 'project_name', 'style' => 'border: none; background-color: white;'])}}</td>
+                        <td>{{Form::text('project_estimate_cost', number_format($customer_invoice->project_estimate_cost, 2, '.', '') ,['class' => 'form-control', 'for' => 'project_name', 'style' => 'border: none; background-color: white;'])}}</td>
                         <td>{{Form::text('project_final_cost', number_format($customer_invoice->project_estimate_cost, 2, '.', '') ,['class' => 'form-control', 'for' => 'project_name'])}}</td>
                         <td>{{Form::text('invoice_reference', null ,['class' => 'form-control', 'for' => 'invoice_reference'])}}</td>
                     </tr>
@@ -66,8 +66,8 @@
                         <td>&nbsp;</td>
                         <td class="text-right"><b>Grand total:</b></td>
                         <td class="text-left" id="invoice_grand_total">
-                            {{Form::hidden('invoice_grand_total', $customer_invoice->invoice_final_cost)}}
-                            A$ {{number_format($customer_invoice->invoice_final_cost, 2, '.', ',')}}
+                            {{Form::hidden('invoice_grand_total', $customer_invoice->invoice_grand_total)}}
+                            A$ {{number_format($customer_invoice->invoice_grand_total, 2, '.', ',')}}
                         </td>
                         <td>&nbsp;</td>
                     </tr>

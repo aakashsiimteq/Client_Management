@@ -88,10 +88,10 @@ class InvoiceForProjectController extends Controller
             $new_invoice->invoice_number = $invoice_number;
             $new_invoice->customer_id = $customer->customer_number;
             $new_invoice->project_id = $project->project_number;
-
+            $new_invoice->invoice_final_cost = $project->project_estimate_cost;
             $final_cost = ($project->project_estimate_cost * 10);
-            $final_cost = $final_cost / 100;
-            $new_invoice->invoice_final_cost = $project->project_estimate_cost + $final_cost;
+            $gst_amount = $final_cost / 100;
+            $new_invoice->invoice_grand_total = $project->project_estimate_cost + $gst_amount;
             $new_invoice->invoice_gst_rate = 10;
             $new_invoice->invoice_status = 'Open';
             $new_invoice->invoice_date = date('Y/m/d');

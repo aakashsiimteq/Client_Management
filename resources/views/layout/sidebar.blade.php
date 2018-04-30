@@ -1,4 +1,4 @@
-<aside class="main-sidebar">
+<aside class="main-sidebar" style="background-color: black; border-color: black;">
 
   <!-- sidebar: style can be found in sidebar.less -->
   <section class="sidebar">

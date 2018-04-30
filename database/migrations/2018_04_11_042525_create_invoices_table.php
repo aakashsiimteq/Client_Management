@@ -20,6 +20,7 @@ class CreateInvoicesTable extends Migration
             $table->integer('project_id')->unsigned();
             $table->float('invoice_gst_rate')->nullable(true)->unsigned();
             $table->double('invoice_final_cost')->unsigned();
+            $table->double('invoice_grand_total')->unsigned();
             $table->date('invoice_date');
             $table->enum('invoice_status', ['Open', 'Close']);
             $table->enum('invoice_copy_type', ['By hand', 'By Email'])->nullable(true);

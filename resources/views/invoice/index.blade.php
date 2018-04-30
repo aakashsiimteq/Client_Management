@@ -91,7 +91,7 @@
                             <td>{{$invoice->customer_type}}</td>
                             <td>{{$invoice->project_name}}</td>
                             <td>{{$invoice->project_type}}</td>
-                            <td>A$ {{number_format($invoice->invoice_final_cost, 2, '.', ',')}}</td>
+                            <td>A$ {{number_format($invoice->invoice_grand_total, 2, '.', ',')}}</td>
                             <td>
                                 @if($invoice->invoice_gst_rate > 0)
                                     Yes

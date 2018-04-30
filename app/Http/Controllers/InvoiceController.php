@@ -105,7 +105,7 @@ class InvoiceController extends Controller
                      ->leftJoin('customers', 'customers.customer_number', '=', 'invoices.customer_id')
                      ->where('invoice_id', '=', $id)
                      ->first();
-        return view('invoice.edit', compact('customer_invoice', 'invoice'));
+        return view('invoice.edit', compact('customer_invoice', 'invoice', 'page_title', 'page_description'));
     }
 
     /**
@@ -124,7 +124,8 @@ class InvoiceController extends Controller
         $invoice->invoice_date = $request->invoice_date;
         $invoice->invoice_billing_address = $request->invoice_billing_address;
         $invoice->invoice_copy_type = $request->invoice_copy_type;
-        $invoice->invoice_final_cost = $request->invoice_grand_total;
+        $invoice->invoice_final_cost = $request->project_estimate_cost;
+        $invoice->invoice_grand_total = $request->invoice_grand_total;
         $invoice->save();
 
         Session::flash('updated', 'Invoice updated successfully');

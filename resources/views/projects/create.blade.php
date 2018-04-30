@@ -55,11 +55,11 @@
         </div>
         <div class="col-md-3">
             {{Form::label('project_per_hour_cost', 'Per Hour Cost')}}
-            {{Form::text('project_per_hour_cost', null ,['class' => 'form-control', 'for' => 'project_per_hour_cost','required' => 'true', 'placeholder' => 'Cost per Hour','onkeypress' => 'return isNumberKey(event)','onblur' => 'calculateTotal()','readonly' => 'true'])}}
+            {{Form::text('project_per_hour_cost', null ,['class' => 'form-control', 'for' => 'project_per_hour_cost','required' => 'true', 'placeholder' => 'Cost per Hour','onkeypress' => 'return isNumberKey(event)','onblur' => 'calculateTotal()'])}}
         </div>
         <div class="col-md-3">
             {{Form::label('project_estimate_cost', 'Total Estimated Cost')}}
-            {{Form::text('project_estimate_cost', null ,['class' => 'form-control', 'for' => 'project_estimate_cost','required' => 'true','placeholder' => 'Total Estimated Cost','readonly' => 'true'])}}
+            {{Form::text('project_estimate_cost', null ,['class' => 'form-control', 'for' => 'project_estimate_cost','required' => 'true','placeholder' => 'Total Estimated Cost'])}}
         </div>
     </div>
     <div class="row" style="margin-top:2%;">
