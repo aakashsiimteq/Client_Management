@@ -1,10 +1,11 @@
-@extends('layout.index') @section('title', 'Invoices')
+@extends('layout.index') @section('title', 'Custom Invoices')
 
 @section('content')
-    @php
-        $count = 0;
-    @endphp
-    <p class="text-right"><button class="btn btn-primary btn-md" data-toggle="modal" data-target="#customInvoice">Make custom invoice</button></p>
+@php
+    $count = 0;
+    $count1 = 0;
+@endphp
+<p class="text-right"><button class="btn btn-primary btn-md" data-toggle="modal" data-target="#customInvoice">Make custom invoice</button></p>
     <!-- Button trigger modal -->
     <!-- Modal -->
     <div class="modal fade" id="customInvoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -64,51 +65,68 @@
         </div>
         </div>
     </div>
-    <p class="text-right"><button class="btn btn-primary btn-md">Make custom invoice</button></p>
-
-    <table class="table text-center">
+    <table class="table">
         <thead>
             <th>Sr no.</th>
             <th>Invoice id.</th>
             <th>Customer name</th>
-            <th>Customer type</th>
-            <th>Project name</th>
-            <th>Project type</th>
             <th>Invoice amount</th>
-            <th>Inc. GST</th>
-            <th>Reference</th>
-            <th></th>
+            <th>Invoice date</th>
+            <th>Invoice status</th>
+            <th>&nbsp;</th>
         </thead>
         <tbody>
-            @foreach($invoices as $invoice)
+            @foreach($unique_invoice as $invoice)
                 <tr>
                     <td>{{++$count}}</td>
-                    <td>{{$invoice->invoice_number}}</td>
-                    <td>{{$invoice->customer_name}}</td>
-                    <td>{{$invoice->customer_type}}</td>
-                    <td>{{$invoice->project_name}}</td>
-                    <td>{{$invoice->project_type}}</td>
-                    <td>A$ {{number_format($invoice->invoice_final_cost, 2, '.', ',')}}</td>
+                    <td>{{$invoice->custom_invoice_number}}</td>
+                    <td>{{$invoice->custom_customer_name}}</td>
+                    <td>A$ {{number_format($invoice->custom_invoice_amount, 2, '.', ',')}}</td>
+                    <td>{{$invoice->created_at}}</td>
+                    <td></td>
                     <td>
-                        @if($invoice->invoice_gst_rate > 0)
-                            Yes
-                        @endif
-                    </td>
-                    <td>{{$invoice->invoice_reference or '-'}}</td>
-                    <td>
-                        {!!Html::linkRoute('invoice.edit', 'Edit', array($invoice->invoice_id), array('class' => 'btn btn-primary btn-sm'))!!}
-                        <div style="display: inline-block">
-                            {!!Form::open(['route' => ['invoice.destroy', $invoice->invoice_id], 'method' => 'DELETE'])!!}
-                                {{Form::submit('Delete', ['class' => 'btn btn-danger btn-sm'])}}
-                            {!!Form::close()!!}
-                        </div>
-                        <a class="btn btn-sm btn-warning" href="/print?invoice_id={{$invoice->invoice_number}}" target="_blank"><i class="fa fa-print"></i>&nbsp;Print</a>
+                        {!!Html::linkRoute('custom-invoice.edit', 'Edit', array($invoice->custom_invoice_id), array('class' => 'btn btn-primary btn-sm'))!!}
+                            <div style="display: inline-block">
+                                {!!Form::open(['route' => ['custom-invoice.destroy', $invoice->custom_invoice_id], 'method' => 'DELETE'])!!}
+                                    {{Form::submit('Delete', ['class' => 'btn btn-danger btn-sm'])}}
+                                {!!Form::close()!!}
+                            </div>
+                        <button class="btn btn-sm btn-warning">Print</button>
                     </td>
                 </tr>
+                <div id="collapseExample" class="collapse">
+                    <thead style="color: gray;">
+                        <th></th>
+                        <th>Sr.no.</th>
+                        <th>Product name</th>
+                        <th>Product quantity</th>
+                        <th>Product cost</th>
+                    </thead>
+                    <?php $total = 0; ?>
+                    @foreach($custom_invoices as $cust_invo)
+                        @if($cust_invo->custom_invoice_number == $invoice->custom_invoice_number)
+                            <?php $total = $total + $cust_invo->custom_invoice_product_cost;?>
+                            <tr style="color: gray; font-style: italic">
+                                <td>&nbsp;</td>
+                                <td>{{++$count1}}</td>
+                                <td>{{$cust_invo->custom_invoice_product_name}}</td>
+                                <td>{{$cust_invo->custom_invoice_product_quantity}}</td>
+                                <td>A$ {{number_format($cust_invo->custom_invoice_product_cost, 2, '.', ',')}}</td>
+                            </tr>
+                        @endif
+                    @endforeach
+                    <?php $count1 = 0;?>
+                    <tr style="color: gray; font-style: italic">
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td>&nbsp;</td>
+                        <td class="text-right font-weight-bold">Total:</td>
+                        <td>A$ {{number_format($total, 2, '.', ',')}}</td>
+                    </tr>
+                </div>
+                
             @endforeach
-            <tr></tr>
         </tbody>
+        
     </table>
-
-   
 @endsection

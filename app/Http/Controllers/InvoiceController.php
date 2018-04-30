@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Invoice;
 use App\Project;
 use App\Customer;
+use App\CustomInvoice;
 use Session;
 use DB;
 use PDF;
@@ -26,11 +27,30 @@ class InvoiceController extends Controller
     {
         $page_title = 'Invoice';
         $page_description = 'Invoice listing';
+
+        $invoice_number = Invoice::max('invoice_number');
+                        
+        if($invoice_number == null){
+            $invoice_number = "1001";
+        
+        }else{
+            $invoice_number = $invoice_number + 1;
+        }
+
+        $custom_invoice_number = CustomInvoice::max('custom_invoice_number');
+        
+        if($custom_invoice_number == null){
+            $custom_invoice_number = "1001";
+        
+        }else{
+            $custom_invoice_number = $custom_invoice_number + 1;
+        }
+
         $invoices = DB::table('invoices')
                     ->leftJoin('customers', 'customers.customer_number', '=', 'invoices.customer_id')
                     ->leftJoin('projects', 'projects.project_number', '=', 'invoices.project_id')
                     ->get();
-        return view('invoice.index', compact('invoices', 'page_title', 'page_description'));
+        return view('invoice.index', compact('invoices', 'page_title', 'page_description', 'invoice_number', 'custom_invoice_number'));
     }
 
     /**
