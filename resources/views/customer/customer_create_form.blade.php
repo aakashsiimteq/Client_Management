@@ -5,11 +5,11 @@
     </div>
     <div class="col-md-4">
         {{Form::label('customer_name', 'Name')}}
-        {{Form::text('customer_name', null ,['class' => 'form-control', 'for' => 'customer_name'])}}
+        {{Form::text('customer_name', null ,['class' => 'form-control', 'for' => 'customer_name', 'required' => 'true'])}}
     </div>
     <div class="col-md-4">
         {{Form::label('customer_type', 'Customer type')}}
-        {{Form::select('customer_type', ['Company' => 'Company', 'Individual' => 'Individual', 'Other' => 'Other'], null ,['class' => 'form-control'])}}
+        {{Form::select('customer_type', ['Company' => 'Company', 'Individual' => 'Individual', 'Other' => 'Other'], null ,['class' => 'form-control', 'required' => 'true'])}}
     </div>
 </div>
 
@@ -24,18 +24,18 @@
     </div>
     <div class="col-md-4">
         {{Form::label('customer_contact_no', 'Contact no.')}}
-        {{Form::number('customer_contact_no', null ,['class' => 'form-control', 'for' => 'customer_contact_no'])}}        
+        {{Form::text('customer_contact_no', null ,['class' => 'form-control', 'for' => 'customer_contact_no', 'maxlength' => '10','onkeypress' => 'return isNumberKey(event)'])}}
     </div>
 </div>
 
 <div class="row" style="margin-top:2%;">
     <div class="col-md-6">
         {{Form::label('customer_physical_address', 'Physical address')}}
-        {{Form::textarea('customer_physical_address', null ,['class' => 'form-control', 'for' => 'customer_physical_address'])}}
+        {{Form::textarea('customer_physical_address', null ,['class' => 'form-control', 'for' => 'customer_physical_address', 'rows' => '6'])}}
     </div>
     <div class="col-md-6">
         {{Form::label('customer_billing_address', 'Billing address')}}
-        {{Form::textarea('customer_billing_address', null ,['class' => 'form-control', 'for' => 'customer_billing_address'])}}
+        {{Form::textarea('customer_billing_address', null ,['class' => 'form-control', 'for' => 'customer_billing_address', 'rows' => '6'])}}
     </div>
 </div>
 <div class="row" style="margin-top:2%;">
@@ -43,6 +43,3 @@
         {{Form::submit('Register', ['class' => 'btn btn-primary btn-block'])}}
     </div>
 </div>
-
-
-
