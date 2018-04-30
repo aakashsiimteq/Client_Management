@@ -146,7 +146,6 @@ return [
         Illuminate\Translation\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
-        Barryvdh\Debugbar\ServiceProvider::class,
         Elibyy\TCPDF\ServiceProvider::class,
         Barryvdh\DomPDF\ServiceProvider::class,
 
@@ -216,7 +215,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
-        'Debugbar' => Barryvdh\Debugbar\Facade::class,
         'PDF' => Elibyy\TCPDF\Facades\TCPDF::class,
         'DomPDF' => Barryvdh\DomPDF\Facade::class,
 
