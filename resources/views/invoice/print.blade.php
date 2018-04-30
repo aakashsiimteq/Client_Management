@@ -73,9 +73,6 @@
                         <td height="20" align="right" style="border:1px solid #000;">{{number_format($invoice_data->invoice_gst_rate,2)}}</td>
                     </tr>
                     <?php
-                    $gst_amount = $invoice_data->invoice_gst_rate * $invoice_data->invoice_final_cost / 100;
-                    $total = $invoice_data->invoice_final_cost + $gst_amount;
-
                     ?>
                     <tr class="gmattersmallest">
                         <td height="20" align="right" style="border:1px solid #000;" colspan="3"> Total amount : &nbsp;</td>
