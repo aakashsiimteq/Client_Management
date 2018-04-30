@@ -9,6 +9,7 @@ use App\Customer;
 use App\CustomInvoice;
 use Session;
 use DB;
+use PDF;
 
 class InvoiceController extends Controller
 {
@@ -128,7 +129,7 @@ class InvoiceController extends Controller
 
         Session::flash('updated', 'Invoice updated successfully');
         return redirect()->route('invoice.index');
-        
+
     }
 
     /**
@@ -144,4 +145,31 @@ class InvoiceController extends Controller
         Session::flash('invoice_deleted', 'Invoice deleted successfully');
         return redirect()->route('invoice.index');
     }
+
+    public function getPrintView(Request $request)
+    {
+        $invoice_id = $request->invoice_id;
+        // $invoice = Invoice::where('invoice_number','=',$invoice_id)->get();
+        $invoice_data = DB::table('invoices')
+                     ->leftJoin('projects', 'projects.project_number', '=', 'invoices.project_id')
+                     ->leftJoin('customers', 'customers.customer_number', '=', 'invoices.customer_id')
+                     ->where('invoice_number', '=', $invoice_id)
+                     ->first();
+        $view = view('invoice.print')->with('invoice_data',$invoice_data);
+        return $view;
+    }
+
+    public function getInvoiceprint(Request $request) {
+		$pdfName = "Invoice";
+		$view = $this->getPrintView($request);
+		if ($view != false) {
+			$contents = $view->render();
+			PDF::SetTitle('Siimteq Technologies Invoice');
+			PDF::AddPage();
+			PDF::writeHTML($contents);
+			PDF::Output("$pdfName.pdf", 'I');
+		} else {
+			return "this is fails";
+		}
+	}
 }

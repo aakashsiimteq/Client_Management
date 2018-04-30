@@ -25,3 +25,5 @@ Route::resource('invoice', 'InvoiceController');
 Route::resource('customer-project', 'ProjectForCustomerController');
 Route::resource('project-invoice', 'InvoiceForProjectController');
 Route::resource('custom-invoice', 'CustomInvoiceController');
+Route::get('print','InvoiceController@getPrintView');
+

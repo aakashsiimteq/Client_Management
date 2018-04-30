@@ -64,6 +64,8 @@
         </div>
         </div>
     </div>
+    <p class="text-right"><button class="btn btn-primary btn-md">Make custom invoice</button></p>
+
     <table class="table text-center">
         <thead>
             <th>Sr no.</th>
@@ -100,11 +102,13 @@
                                 {{Form::submit('Delete', ['class' => 'btn btn-danger btn-sm'])}}
                             {!!Form::close()!!}
                         </div>
-                        <button class="btn btn-sm btn-warning">Print</button>
+                        <a class="btn btn-sm btn-warning" href="/print?invoice_id={{$invoice->invoice_number}}" target="_blank"><i class="fa fa-print"></i>&nbsp;Print</a>
                     </td>
                 </tr>
             @endforeach
             <tr></tr>
         </tbody>
     </table>
+
+   
 @endsection
