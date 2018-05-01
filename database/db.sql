@@ -1,3 +1,29 @@
+create table custom_invoice_items
+(
+  custom_invoice_item_id          int unsigned auto_increment primary key,
+  custom_invoice_number           int unsigned not null,
+  custom_invoice_product_name     varchar(255) not null,
+  custom_invoice_product_quantity int          not null,
+  custom_invoice_product_cost     double       not null,
+  created_at                      timestamp    null,
+  updated_at                      timestamp    null
+)
+  engine = InnoDB
+  collate = utf8_unicode_ci;
+
+create table custom_invoices
+(
+  custom_invoice_id       int unsigned auto_increment primary key,
+  custom_invoice_number   int unsigned not null,
+  custom_customer_name    varchar(255) null,
+  custom_customer_address varchar(255) null,
+  custom_invoice_amount   double       not null,
+  created_at              timestamp    null,
+  updated_at              timestamp    null
+)
+  engine = InnoDB
+  collate = utf8_unicode_ci;
+
 create table customers
 (
   customer_id               int unsigned auto_increment primary key,
@@ -29,12 +55,14 @@ create table invoices
   project_id              int unsigned                                    not null,
   invoice_gst_rate        double(8, 2) unsigned                           null,
   invoice_final_cost      double unsigned                                 not null,
+  invoice_grand_total     double unsigned                                 not null,
   invoice_date            date                                            not null,
   invoice_status          enum ('Open', 'Close')                          not null,
   invoice_copy_type       enum ('By hand', 'By Email')                    null,
   invoice_payment_terms   enum ('Credit card', 'Cash', 'Cheque', 'Other') not null,
   invoice_billing_address varchar(255)                                    not null,
   invoice_comments        text                                            null,
+  invoice_reference       text                                            null,
   created_at              timestamp                                       null,
   updated_at              timestamp                                       null,
   constraint invoices_invoice_number_unique
@@ -79,7 +107,7 @@ create index password_resets_email_index
 
 create table payment_details
 (
-  payment_details_id   int unsigned auto_increment primary key,
+  payment_details_id   int unsigned auto_increment  primary key,
   customer_id          int unsigned                 not null,
   project_id           int unsigned                 not null,
   project_final_amount double unsigned              not null,
@@ -104,6 +132,7 @@ create table projects
   project_status        enum ('On going', 'Complete')                                 null,
   project_start_date    date                                                          null,
   project_end_date      date                                                          null,
+  project_estimate_hour int unsigned                                                  not null,
   project_per_hour_cost double unsigned                                               not null,
   project_estimate_cost double unsigned                                               not null,
   created_at            timestamp                                                     null,
