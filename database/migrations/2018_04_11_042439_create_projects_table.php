@@ -23,6 +23,7 @@ class CreateProjectsTable extends Migration
             $table->enum('project_status', ['On going', 'Complete'])->nullable(true);
             $table->date('project_start_date')->nullable(true);
             $table->date('project_end_date')->nullable(true);
+            $table->integer('project_estimate_hour')->unsigned();
             $table->double('project_per_hour_cost')->unsigned();
             $table->double('project_estimate_cost')->unsigned();
             $table->timestamps();
