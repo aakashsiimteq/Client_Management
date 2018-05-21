@@ -50,9 +50,32 @@
             </span>
         </a>
         <ul class="treeview-menu">
-          <li><a href="#">Add Manual Invoices</a></li>
           <li><a href="{{route('invoice.index')}}">View Invoices</a></li>
           <li><a href="{{route('custom-invoice.index')}}">View Custom Invoices</a></li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-credit-card"></i> <span>Accounts</span>
+          <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="{{route('payment-receive.index')}}">Payment Receive</a></li>
+          <li><a href="#">Payment Payables</a></li>
+          <li><a href="#">Expense</a></li>
+        </ul>
+      </li>
+      <li class="treeview">
+        <a href="#"><i class="fa fa-credit-card"></i> <span>Reports</span>
+          <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+        </a>
+        <ul class="treeview-menu">
+          <li><a href="#">Receivable Report</a></li>
+          <li><a href="#">Payable Report</a></li>
+          <li><a href="#">GST Report</a></li>
         </ul>
       </li>
       <li class="treeview">

@@ -2,12 +2,19 @@
 
 @section('content')
 
-<div class="panel panel-primary">
+    <div class="row">
+        <div class="col-md-3">
+            <label for="search_table" class="control-label">Search Projects</label>
+            <input type="text" name="search_table" id="search_table" placeholder="Search Projects" class="form-control" />
+        </div>
+    </div>
+
+<div class="panel panel-primary" style="margin-top: 2%;">
   <div class="panel-heading">
     <h3 class="panel-title">View Project</h3>
   </div>
   <div class="panel-body">
-    <table class="table text-center table-bordered table-hover">
+    <table class="table text-center table-bordered table-hover" id="searchtable">
         <thead>
             <th>Sr no.</th>
             <th>Project id</th>

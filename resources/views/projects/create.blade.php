@@ -24,7 +24,7 @@
     <div class="row" style="margin-top:2%;">
         <div class="col-md-4">
             {{Form::label('project_type', 'Project Type')}}
-            {{Form::select('project_type', ['Website' => 'Website', 'Software' => 'Software', 'Web service' => 'Web service', 'Cloud' => 'Cloud', 'Other' => 'Other'], null ,['class' => 'form-control','required' => 'true','placeholder' => 'Select Project Type'])}}
+            {{Form::select('project_type', ['Website' => 'Website', 'Software' => 'Software', 'Web service' => 'Web service', 'Cloud' => 'Cloud', 'Computer Maintenance' => 'Computer Maintenance', 'Network Installation' => 'Network Installation','Other' => 'Other'], null ,['class' => 'form-control','required' => 'true','placeholder' => 'Select Project Type'])}}
         </div>
         <div class="col-md-4">
             {{Form::label('project_name', 'Project Name')}}
@@ -32,7 +32,7 @@
         </div>
         <div class="col-md-4">
             {{Form::label('project_status', 'Project Status')}}
-            {{Form::select('project_status', ['On going' => 'On going', 'Complete' => 'Complete'], null ,['class' => 'form-control','required' => 'true','placeholder' => 'Project Status'])}}
+            {{Form::select('project_status', ['In Progress' => 'In Progress', 'Complete' => 'Complete'], null ,['class' => 'form-control','required' => 'true','placeholder' => 'Project Status'])}}
         </div>
     </div>
 

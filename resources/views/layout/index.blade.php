@@ -98,6 +98,7 @@ desired effect
     <!-- AdminLTE App -->
     <script src="{{ asset ("bower_components/admin-lte/dist/js/adminlte.min.js") }}" type="text/javascript"></script>
     <script src="{{asset("js/script.js")}}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script type="text/javascript">
     function isNumberKey(evt){
       var charCode = (evt.which) ? evt.which : event.keyCode
@@ -106,6 +107,19 @@ desired effect
       return true;
     }
     </script>
+    <script type="text/javascript">
+        $("#search_table").keyup(function(){
+            _this = this;
+            // Show only matching TR, hide rest of them
+            $.each($("#searchtable tbody tr"), function() {
+                if($(this).text().toLowerCase().indexOf($(_this).val().toLowerCase()) === -1)
+                    $(this).hide();
+                else
+                    $(this).show();
+            });
+        });
+    </script>
+
     @yield('custom_scripts')
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.

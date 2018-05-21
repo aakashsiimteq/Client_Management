@@ -1,13 +1,14 @@
-@extends('layout.index') @section('title', 'Home Page')
+@extends('layout.index') @section('title', 'Welcome')
 
 @section('content') @section('sidetitle', 'EMS')
+
 <div class="container">
     <div class="row">
         <div class="col-md-3">
             <div class="small-box bg-green">
                 <div class="inner">
                     <h3>{{$customer_count}}</h3>
-    
+
                     <p>Customers</p>
                 </div>
                 <div class="icon">

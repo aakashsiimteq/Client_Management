@@ -29,21 +29,25 @@ class InvoiceController extends Controller
         $page_description = 'Invoice listing';
 
         $invoice_number = Invoice::max('invoice_number');
-                        
+
         if($invoice_number == null){
-            $invoice_number = "1001";
+            $invoice_number = "INV1001";
         
         }else{
+            $invoice_number = (int)(substr($invoice_number,3));
             $invoice_number = $invoice_number + 1;
+            $invoice_number = "INV".$invoice_number;
         }
 
         $custom_invoice_number = CustomInvoice::max('custom_invoice_number');
         
         if($custom_invoice_number == null){
-            $custom_invoice_number = "1001";
+            $custom_invoice_number = "CINV1001";
         
         }else{
+            $custom_invoice_number = (int)(substr($custom_invoice_number, 4));
             $custom_invoice_number = $custom_invoice_number + 1;
+            $custom_invoice_number = "CINV".$custom_invoice_number;
         }
 
         $invoices = DB::table('invoices')

@@ -23,21 +23,10 @@ class CustomInvoiceController extends Controller
     {
         $page_title = 'Custom invoice';
         $page_description = 'Custom invoice listing';
-        $unique_invoice = CustomInvoice::all();
-        $custom_invoices = DB::table('custom_invoices as ci')
-                            ->leftJoin('custom_invoice_items as cii', 'cii.custom_invoice_number', '=', 'ci.custom_invoice_number')
-                            ->get();
-        
-        $custom_invoice_number = CustomInvoice::max('custom_invoice_number');
 
-        if($custom_invoice_number == null){
-            $custom_invoice_number = "1001";
-        
-        }else{
-            $custom_invoice_number = $custom_invoice_number + 1;
-        }
+        $custom_invoices = CustomInvoice::all();
 
-        return view('invoice.custom', compact('page_title', 'page_description', 'custom_invoices', 'unique_invoice', 'custom_invoice_number'));
+        return view('invoice.custom', compact('page_title', 'page_description', 'custom_invoices'));
     }
 
     /**
@@ -47,7 +36,20 @@ class CustomInvoiceController extends Controller
      */
     public function create()
     {
-        //
+        $page_title = 'Custom Invoice';
+        $page_description = 'Make custom invoice';
+
+        $custom_invoice_number = CustomInvoice::max('custom_invoice_number');
+        if($custom_invoice_number == null){
+            $custom_invoice_number = "CINV1001";
+        }else{
+            $custom_invoice_number = (int)(substr($custom_invoice_number,4));
+            $custom_invoice_number = $custom_invoice_number + 1;
+            $custom_invoice_number = "CINV".$custom_invoice_number;
+
+        }
+
+        return view('invoice.custom-create', compact('page_title', 'page_description', 'custom_invoice_number'));
     }
 
     /**
@@ -61,36 +63,27 @@ class CustomInvoiceController extends Controller
         $page_title = 'Custom invoice';
         $page_description = 'Custom invoice listing';
 
-        $custom_invoice_number = CustomInvoice::max('custom_invoice_number');
-        
-        if($custom_invoice_number == null){
-            $custom_invoice_number = "1001";
-        
-        }else{
-            $custom_invoice_number = $custom_invoice_number + 1;
-        }
-
-        $total_amount = 0;
-
-        for ($item=0; $item <count($request->product_cost) ; $item++) { 
-            $total_amount = $total_amount + $request->product_cost[$item];
-        }
+        //dd($request->all());
 
         $custom_invoice = new CustomInvoice();
-        $custom_invoice->custom_invoice_number = $custom_invoice_number;
         $custom_invoice->custom_customer_name = $request->custom_customer_name;
-        $custom_invoice->custom_customer_address = $request->custom_customer_address;
-        $custom_invoice->custom_invoice_amount = $total_amount;
+        $custom_invoice->custom_invoice_number = $request->custom_invoice_number;
+        $custom_invoice->project_type = $request->project_type;
+        $custom_invoice->project_title = $request->project_title;
+        $custom_invoice->project_per_hour_cost = $request->project_per_hour_cost;
+        $custom_invoice->project_estimate_cost = $request->project_estimate_cost;
+        $custom_invoice->project_final_cost = $request->project_final_cost;
+        $custom_invoice->invoice_reference = $request->invoice_reference;
+        $custom_invoice->invoice_total_amount = $request->invoice_total_amount;
+        $custom_invoice->invoice_grand_total = $request->invoice_grand_total;
+        $custom_invoice->invoice_date = $request->invoice_date;
+        $custom_invoice->invoice_paid_amount = 0;
+        $custom_invoice->invoice_unpaid_amount = $request->invoice_grand_total;
+        $custom_invoice->invoice_copy_type = $request->invoice_copy_type;
+        $custom_invoice->invoice_billing_address = $request->invoice_billing_address;
+        $custom_invoice->project_desc = $request->project_desc;
+        $custom_invoice->invoice_comments = $request->invoice_comments;
         $custom_invoice->save();
-        
-        for ($item=0; $item <count($request->product_name) ; $item++) { 
-            $custom_invoice_item = new CustomInvoiceItem();
-            $custom_invoice_item->custom_invoice_number = $custom_invoice_number;    
-            $custom_invoice_item->custom_invoice_product_name = $request->product_name[$item];
-            $custom_invoice_item->custom_invoice_product_quantity = $request->product_quantity[$item];
-            $custom_invoice_item->custom_invoice_product_cost = $request->product_cost[$item];
-            $custom_invoice_item->save();
-        }
 
         Session::flash('invoiced', 'Successfully invoiced');
         return redirect()->route('custom-invoice.index');
@@ -115,7 +108,10 @@ class CustomInvoiceController extends Controller
      */
     public function edit($id)
     {
-        //
+        $page_title = 'Custom invoice';
+        $page_description = 'Edit Custom invoice';
+        $custom_invoice = CustomInvoice::find($id);
+        return view('invoice.custom-edit', compact('custom_invoice', 'page_title', 'page_description'));
     }
 
     /**
@@ -127,7 +123,29 @@ class CustomInvoiceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $custom_invoice = CustomInvoice::find($id);
+        $custom_invoice->custom_customer_name = $request->custom_customer_name;
+        $custom_invoice->custom_invoice_number = $request->custom_invoice_number;
+        $custom_invoice->project_type = $request->project_type;
+        $custom_invoice->project_title = $request->project_title;
+        $custom_invoice->project_per_hour_cost = $request->project_per_hour_cost;
+        $custom_invoice->project_estimate_cost = $request->project_estimate_cost;
+        $custom_invoice->project_final_cost = $request->project_final_cost;
+        $custom_invoice->invoice_reference = $request->invoice_reference;
+        $custom_invoice->invoice_total_amount = $request->invoice_total_amount;
+        $custom_invoice->invoice_grand_total = $request->invoice_grand_total;
+        $custom_invoice->invoice_date = $request->invoice_date;
+        $custom_invoice->invoice_paid_amount = 0;
+        $custom_invoice->invoice_unpaid_amount = $request->invoice_grand_total;
+        $custom_invoice->invoice_copy_type = $request->invoice_copy_type;
+        $custom_invoice->invoice_billing_address = $request->invoice_billing_address;
+        $custom_invoice->project_desc = $request->project_desc;
+        $custom_invoice->invoice_comments = $request->invoice_comments;
+        $custom_invoice->save();
+
+        Session::flash('invoiced', 'Successfully updated');
+        return redirect()->route('custom-invoice.index');
+
     }
 
     /**
@@ -139,8 +157,6 @@ class CustomInvoiceController extends Controller
     public function destroy($id)
     {
         $custom_invoice = CustomInvoice::find($id);
-        $custom_invoice_items = CustomInvoiceItem::where('custom_invoice_number', '=', $custom_invoice->custom_invoice_number)->get();
-        $custom_invoice_items->delete();
         $custom_invoice->delete();
 
         Session::flash('deleted', 'Deleted successfully.');

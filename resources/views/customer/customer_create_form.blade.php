@@ -9,7 +9,7 @@
     </div>
     <div class="col-md-4">
         {{Form::label('customer_type', 'Customer type')}}
-        {{Form::select('customer_type', ['Company' => 'Company', 'Individual' => 'Individual', 'Other' => 'Other'], 'customer_type' ,['class' => 'form-control', 'required' => 'true','placeholder' => 'Select Customer Type'])}}
+        {{Form::select('customer_type', ['Company' => 'Company', 'Individual' => 'Individual'], 'customer_type' ,['class' => 'form-control', 'required' => 'true','placeholder' => 'Select Customer Type'])}}
     </div>
 </div>
 

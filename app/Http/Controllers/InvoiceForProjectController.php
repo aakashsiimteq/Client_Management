@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\PaymentReceive;
 use Illuminate\Http\Request;
 use App\Project;
 use App\Customer;
@@ -69,12 +70,13 @@ class InvoiceForProjectController extends Controller
         $page_description = 'Make Invoice';
 
         $invoice_number = Invoice::max('invoice_number');
-                        
         if($invoice_number == null){
-            $invoice_number = "1001";
+            $invoice_number = "INV1001";
         
         }else{
+            $invoice_number = (int)(substr($invoice_number,3));
             $invoice_number = $invoice_number + 1;
+            $invoice_number = "INV".$invoice_number;
         }
 
         $project = Project::find($id);
@@ -104,6 +106,18 @@ class InvoiceForProjectController extends Controller
                                 ->where('invoices.invoice_id', '=', $new_invoice->invoice_id)
                                 ->first();
             $invoice = Invoice::find($customer_invoice->invoice_id);
+
+            $payment = new PaymentReceive();
+            $payment->customer_id = $customer->customer_number;
+            $payment->project_id = $project->project_number;
+            $payment->invoice_id = $new_invoice->invoice_id;
+            $payment->invoice_final_amount = $new_invoice->invoice_grand_total;
+            $payment->invoice_paid_amount = 0;
+            $payment->invoice_due_amount = $new_invoice->invoice_grand_total;
+            $payment->last_amount_paid_on = null;
+            $payment->payment_status = "Pending";
+            $payment->save();
+
         return view('invoice.create', compact('page_title', 'page_description', 'customer_invoice', 'invoice'));
         }
     }

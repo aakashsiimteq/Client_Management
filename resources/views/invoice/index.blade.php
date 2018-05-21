@@ -4,72 +4,22 @@
     @php
         $count = 0;
     @endphp
-    <p class="text-right"><button class="btn btn-primary btn-md" data-toggle="modal" data-target="#customInvoice">Make custom invoice</button></p>
-    <!-- Button trigger modal -->
-    <!-- Modal -->
-    <div class="modal fade" id="customInvoice" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            {!! Form::open(['action' => 'CustomInvoiceController@store', 'method' => 'POST']) !!}
-            <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Custom invoice</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-            </button>
-            </div>
-            <div class="modal-body">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                    {{Form::label('custom_invoice_id', 'Invoice id')}}
-                                    {{Form::text('custom_invoice_id', $custom_invoice_number ,['class' => 'form-control', 'for' => 'invoice_id', 'readonly' => true])}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {{Form::label('custom_customer_name', 'Customer name')}}
-                                {{Form::text('custom_customer_name', null ,['class' => 'form-control', 'for' => 'custom_customer_name'])}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                {{Form::label('custom_customer_address', 'Customer address')}}
-                                {{Form::text('custom_customer_address', null ,['class' => 'form-control', 'for' => 'custom_customer_address'])}}
-                            </div>
-                        </div>
-                    </div>
-                    <div class="product-item float-clear" style="clear:both;">
-                        <div class="pull-left" style="margin-right:1%;"><input type="checkbox" name="product_index[]" /></div>
-                        <div class="pull-left" ><input type="text" name="product_name[]" class="form-control" placeholder="Product name" required/></div>
-                        <div class="pull-left"><input type="text" name="product_quantity[]" class="form-control" placeholder="Quantity" required/></div>
-                        <div class="pull-left"><input type="text" name="product_cost[]" class="form-control" placeholder="Product cost" required/></div>
-                    </div>
-                    <div class="row">
-                        <input type="button" name="add_item" value="Add More" onclick="addMore();" class="btn btn-sm btn-primary" style="margin-right: 1%; margin-left: 1%;">
-                        <input type="button" name="del_item" value="Delete" onclick="deleteRow();" class="btn btn-sm btn-danger">
-                    </div>
-                    
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                {{Form::submit('Save', ['class' => 'btn btn-primary'])}}
-            </div>
-            {!!Form::close()!!}
+    <div class="row">
+        <div class="col-md-3">
+            <label for="search_table" class="control-label">Search Invoices</label>
+            <input type="text" name="search_table" id="search_table" placeholder="Search Invoices" class="form-control" />
         </div>
+        <div class="col-md-9">
+            <a href="{{route('custom-invoice.create')}}" class="btn btn-primary pull-right">Make custom invoice</a>
         </div>
     </div>
+
     <div class="panel panel-primary" style="margin-top:40px">
         <div class="panel-heading">
             <h3 class="panel-title">View Invoices</h3>
         </div>
         <div class="panel-body">
-            <table class="table text-center table-bordered table-hover">
+            <table class="table text-center table-bordered table-hover" id="searchtable">
                 <thead>
                     <th>Sr no.</th>
                     <th>Invoice id.</th>

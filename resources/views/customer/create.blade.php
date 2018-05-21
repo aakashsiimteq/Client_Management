@@ -27,9 +27,7 @@
             $('#customer_email').removeAttr('readonly');
           }else {
             $('#customer_abn_no').prop('required', 'false');
-            $('#customer_email').prop('required', 'false');
             $('#customer_abn_no').prop('readonly', 'true');
-            $('#customer_email').prop('readonly', 'true');
           }
         })
       });

@@ -72,6 +72,7 @@ class ProjectController extends Controller
         $project->project_status = $request->project_status;
         $project->project_start_date = $request->project_start_date;
         $project->project_end_date = $request->project_end_date;
+        $project->project_estimate_hour = 0;
         $project->project_per_hour_cost = $request->project_per_hour_cost;
         $project->project_estimate_cost = $request->project_estimate_cost;
         $project->save();

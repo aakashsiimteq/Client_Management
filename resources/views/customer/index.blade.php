@@ -1,13 +1,22 @@
 @extends('layout.index') @section('title', 'Customer')
 
 @section('content')
-<a href="/customer/create" class="btn btn-primary pull-right" role="button">Add Customer</a>
+
+    <div class="row">
+        <div class="col-md-3">
+            <label for="search_table" class="control-label">Search Customers</label>
+            <input type="text" name="search_table" id="search_table" placeholder="Search Customers" class="form-control" />
+        </div>
+        <div class="col-md-9">
+            <a href="/customer/create" class="btn btn-primary pull-right" role="button">Add Customer</a>
+        </div>
+    </div>
 <div class="panel panel-primary" style="margin-top:40px">
   <div class="panel-heading">
     <h3 class="panel-title">View Customer</h3>
   </div>
   <div class="panel-body">
-    <table class="table text-center table-bordered table-hover">
+    <table class="table text-center table-bordered table-hover" id="searchtable">
         <thead>
             <th>Sr no.</th>
             <th>Customer number</th>
