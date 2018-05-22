@@ -34,7 +34,7 @@
             @foreach($projects as $project)
                 <tr>
                     <td>{{++$count}}</td>
-                    <td>{{$project->project_number}}</td>
+                    <td><a href="project/{{$project->project_id}}/edit">{{$project->project_number}}</a></td>
                     <td>{{$project->project_name}}</td>
                     <td>{{$project->project_type}}</td>
                     <td>{{$project->customer_name}}</td>

@@ -28,7 +28,7 @@ class PaymentReceiveController extends Controller
             ->leftJoin('customers as c', 'c.customer_number', '=', 'pr.customer_id')
             ->leftJoin('invoices as iv', 'iv.invoice_id', '=', 'pr.invoice_id')
             ->where('payment_status', '=', 'Pending')
-            ->select(['customer_name', 'invoice_number', 'iv.created_at', 'invoice_paid_amount', 'invoice_due_amount'])
+            ->select(['customer_name', 'pr.payment_id','iv.invoice_id','invoice_number', 'invoice_grand_total','iv.created_at', 'invoice_paid_amount', 'invoice_due_amount'])
             ->get();
         return view('accounts.payrecv.index', compact('page_description', 'page_title', 'payments'));
     }

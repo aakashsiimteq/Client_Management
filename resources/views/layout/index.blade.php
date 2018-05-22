@@ -119,7 +119,7 @@ desired effect
             });
         });
     </script>
-
+    @stack('body_scripts')
     @yield('custom_scripts')
 
     <!-- Optionally, you can add Slimscroll and FastClick plugins.

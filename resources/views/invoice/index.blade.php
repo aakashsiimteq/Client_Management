@@ -36,7 +36,7 @@
                     @foreach($invoices as $invoice)
                         <tr>
                             <td>{{++$count}}</td>
-                            <td>{{$invoice->invoice_number}}</td>
+                            <td><a href="/invoice/{{$invoice->invoice_id}}/edit">{{$invoice->invoice_number}}</a></td>
                             <td>{{$invoice->customer_name}}</td>
                             <td>{{$invoice->customer_type}}</td>
                             <td>{{$invoice->project_name}}</td>

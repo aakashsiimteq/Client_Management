@@ -1,5 +1,4 @@
 @extends('layout.index') @section('title', 'Payment Receive')
-
 @section('content')
     <div class="row">
         <div class="col-md-3">
@@ -7,6 +6,7 @@
             <input type="text" name="search_table" id="search_table" placeholder="Search Payments" class="form-control" />
         </div>
         <div class="col-md-9">
+            {{--{{Form::open('')}}--}}
             <a href="#" class="btn btn-primary pull-right d-inline-block">Make Advanced Payment</a>
             <a href="#" class="btn btn-primary pull-right">Receive Payment</a>
         </div>
@@ -19,7 +19,7 @@
                     <h4>Amount Received</h4>
                 </div>
                 <div class="col-md-3">
-                    {{Form::text('received_amount', null, ['class' => 'form-control', 'style' => 'direction: rtl'])}}
+                    {{Form::text('received_amount', null, ['class' => 'form-control', 'style' => 'direction: rtl', 'id' => 'received_amount'])}}
                 </div>
             </div>
             <div class="row">
@@ -72,14 +72,21 @@
                 </thead>
                 <tbody>
                     @foreach($payments as $payment)
+                        @php
+                            $date = \Carbon\Carbon::parse($payment->created_at);
+                            $date = $date->format('d-m-Y');
+
+                        @endphp
+
                         <tr>
                             <td>{{$payment->customer_name}}</td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td><a href="/invoice/{{$payment->invoice_id}}/edit">{{$payment->invoice_number}}</a></td>
+                            <td>{{$date}}</td>
+                            <td>{{Form::text('payment_due_amount', number_format($payment->invoice_grand_total, 2, '.', ','), ['class' => 'form-control', 'style' => 'direction: rtl'])}}</td>
+                            <td>{{Form::text('payment_due_amount', number_format($payment->invoice_paid_amount, 2, '.', ','), ['class' => 'form-control', 'style' => 'direction: rtl'])}}</td>
+                            <td>{{Form::text('payment_due_amount', number_format($payment->invoice_due_amount, 2, '.', ','), ['class' => 'form-control', 'style' => 'direction: rtl'])}}</td>
+                            <td>{{Form::text("$payment->invoice_number", null, ['class' => 'form-control ammt', 'style' => 'direction: rtl', 'id' => $payment->payment_id])}}</td>
+                            <td><button class="btn-sm btn btn-primary" id="{{$payment->invoice_number}}" onclick="receive(this.id)">Allocate</button></td>
                         </tr>
                     @endforeach
                 </tbody>
@@ -87,3 +94,15 @@
         </div>
     </div>
 @endsection
+
+@push('body_scripts')
+    <script>
+        function receive(id) {
+            var receivedValue = document.getElementById('received_amount');
+            if (document.getElementById('received_amount').value !== "" && Number(document.getElementById('received_amount').value) > 0) {
+                var vals = document.getElementsByClassName('ammt');
+                document.getElementsByName(id).val = receivedValue;
+            }
+        }
+    </script>
+@endpush

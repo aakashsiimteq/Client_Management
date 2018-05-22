@@ -34,7 +34,7 @@
             @foreach($customers as $customer)
                 <tr>
                     <td>{{++$count}}</td>
-                    <td>{{$customer->customer_number}}</td>
+                    <td><a href="customer/{{$customer->customer_id}}/edit">{{$customer->customer_number}}</a></td>
                     <td>{{$customer->customer_name}}</td>
                     <td>{{$customer->customer_type}}</td>
                     <td>{{$customer->customer_abn_no or '-'}}</td>
