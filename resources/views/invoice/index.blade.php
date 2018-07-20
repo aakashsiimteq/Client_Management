@@ -20,42 +20,42 @@
         </div>
         <div class="panel-body">
             <table class="table text-center table-bordered table-hover" id="searchtable">
-                <thead>
-                    <th>Sr no.</th>
-                    <th>Invoice id.</th>
-                    <th>Customer name</th>
-                    <th>Customer type</th>
-                    <th>Project name</th>
-                    <th>Project type</th>
-                    <th>Invoice amount</th>
-                    <th>Inc. GST</th>
-                    <th>Reference</th>
-                    <th></th>
+                <thead class="bg-primary">
+                    <tr>
+                        <th style="border: 1px solid #174993">#</th>
+                        <th style="border: 1px solid #174993">Invoice id.</th>
+                        <th style="border: 1px solid #174993">Customer name</th>
+                        <th style="border: 1px solid #174993">Customer type</th>
+                        <th style="border: 1px solid #174993">Project name</th>
+                        <th style="border: 1px solid #174993">Project type</th>
+                        <th style="border: 1px solid #174993">Invoice amount</th>
+                        <th style="border: 1px solid #174993">Inc. GST</th>
+                        <th style="border: 1px solid #174993">Action</th>
+                    </tr>
                 </thead>
                 <tbody>
                     @foreach($invoices as $invoice)
                         <tr>
-                            <td>{{++$count}}</td>
-                            <td><a href="/invoice/{{$invoice->invoice_id}}/edit">{{$invoice->invoice_number}}</a></td>
-                            <td>{{$invoice->customer_name}}</td>
-                            <td>{{$invoice->customer_type}}</td>
-                            <td>{{$invoice->project_name}}</td>
-                            <td>{{$invoice->project_type}}</td>
-                            <td>A$ {{number_format($invoice->invoice_grand_total, 2, '.', ',')}}</td>
-                            <td>
+                            <td style="border: 1px solid #dedede">{{++$count}}</td>
+                            <td style="border: 1px solid #dedede"><a href="{{url("admin/invoice/$invoice->invoice_id/edit")}}">{{$invoice->invoice_number}}</a></td>
+                            <td style="border: 1px solid #dedede">{{$invoice->customer_name}}</td>
+                            <td style="border: 1px solid #dedede">{{$invoice->customer_type}}</td>
+                            <td style="border: 1px solid #dedede">{{$invoice->project_name}}</td>
+                            <td style="border: 1px solid #dedede">{{$invoice->project_type}}</td>
+                            <td style="border: 1px solid #dedede">A$ {{number_format($invoice->invoice_grand_total, 2, '.', ',')}}</td>
+                            <td style="border: 1px solid #dedede">
                                 @if($invoice->invoice_gst_rate > 0)
                                     Yes
                                 @endif
                             </td>
-                            <td>{{$invoice->invoice_reference or '-'}}</td>
-                            <td>
+                            <td style="border: 1px solid #dedede">
                                 {!!Html::linkRoute('invoice.edit', 'Edit', array($invoice->invoice_id), array('class' => 'btn btn-primary btn-sm'))!!}
                                 <div style="display: inline-block">
                                     {!!Form::open(['route' => ['invoice.destroy', $invoice->invoice_id], 'method' => 'DELETE'])!!}
                                         {{Form::submit('Delete', ['class' => 'btn btn-danger btn-sm'])}}
                                     {!!Form::close()!!}
                                 </div>
-                                <a class="btn btn-sm btn-warning" href="/print?invoice_id={{$invoice->invoice_number}}" target="_blank"><i class="fa fa-print"></i>&nbsp;Print</a>
+                                <a class="btn btn-sm btn-warning" href="{{url("admin/print?invoice_id=$invoice->invoice_number")}}" target="_blank"><i class="fa fa-print"></i>&nbsp;Print</a>
                             </td>
                         </tr>
                     @endforeach

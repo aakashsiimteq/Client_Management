@@ -38,8 +38,8 @@
                     <td>{{$project->project_name}}</td>
                     <td>{{$project->project_type}}</td>
                     <td>{{$project->customer_name}}</td>
-                    <td>{{$project->project_start_date}}</td>
-                    <td>{{$project->project_end_date}}</td>
+                    <td>{{\Carbon\Carbon::parse($project->project_start_date)->toFormattedDateString()}}</td>
+                    <td>{{\Carbon\Carbon::parse($project->project_end_date)->toFormattedDateString()}}</td>
                     <td>A$ {{$project->project_estimate_cost}}</td>
                     <td>{{$project->project_status}}</td>
                     <td>

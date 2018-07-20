@@ -33,6 +33,6 @@ class HomeController extends Controller
         $invoice_count = Invoice::get()->count();
         $custom_invoice_count = CustomInvoice::get()->count();
         $customer_count = Customer::get()->count();
-        return view('welcome', compact('page_title', 'page_description', 'project_count', 'invoice_count', 'custom_invoice_count', 'customer_count'));
+        return view('dashboard', compact('page_title', 'page_description', 'project_count', 'invoice_count', 'custom_invoice_count', 'customer_count'));
     }
 }

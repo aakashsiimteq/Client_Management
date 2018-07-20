@@ -1,10 +1,9 @@
 @extends('layout.index') @section('title', 'Welcome')
+@section('sidetitle', 'EMS')
+@section('content')
 
-@section('content') @section('sidetitle', 'EMS')
-
-<div class="container">
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-3 col-lg-3">
             <div class="small-box bg-green">
                 <div class="inner">
                     <h3>{{$customer_count}}</h3>
@@ -19,7 +18,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-lg-3">
             <div class="small-box bg-yellow">
                 <div class="inner">
                     <h3>{{$project_count}}</h3>
@@ -34,7 +33,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-lg-3">
             <div class="small-box bg-aqua">
                 <div class="inner">
                     <h3>{{$invoice_count}}</h3>
@@ -49,7 +48,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-3 col-lg-3">
             <div class="small-box bg-red">
                 <div class="inner">
                     <h3>{{$custom_invoice_count}}</h3>
@@ -65,6 +64,4 @@
             </div>
         </div>
     </div>
-
-</div>
 @endsection

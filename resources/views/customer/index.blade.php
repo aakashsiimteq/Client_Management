@@ -8,7 +8,7 @@
             <input type="text" name="search_table" id="search_table" placeholder="Search Customers" class="form-control" />
         </div>
         <div class="col-md-9">
-            <a href="/customer/create" class="btn btn-primary pull-right" role="button">Add Customer</a>
+            <a href="{{url('admin/customer/create')}}" class="btn btn-primary pull-right" role="button">Add Customer</a>
         </div>
     </div>
 <div class="panel panel-primary" style="margin-top:40px">
@@ -18,7 +18,8 @@
   <div class="panel-body">
     <table class="table text-center table-bordered table-hover" id="searchtable">
         <thead>
-            <th>Sr no.</th>
+        <tr>
+            <th>#</th>
             <th>Customer number</th>
             <th>Name</th>
             <th>Type</th>
@@ -26,6 +27,7 @@
             <th>Email</th>
             <th>Contact</th>
             <th>Action</th>
+        </tr>
         </thead>
         @php
             $count = 0;

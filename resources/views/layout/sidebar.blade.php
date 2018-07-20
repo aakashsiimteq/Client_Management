@@ -44,7 +44,7 @@
         </ul>
       </li>
       <li class="treeview">
-        <a href="#"><i class="fa fa-credit-card"></i> <span>Invoices</span>
+        <a href="#"><i class="fa fa-money"></i> <span>Invoices</span>
           <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -55,7 +55,7 @@
         </ul>
       </li>
       <li class="treeview">
-        <a href="#"><i class="fa fa-credit-card"></i> <span>Accounts</span>
+        <a href="#"><i class="fa fa-bank"></i> <span>Accounts</span>
           <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
@@ -67,7 +67,7 @@
         </ul>
       </li>
       <li class="treeview">
-        <a href="#"><i class="fa fa-credit-card"></i> <span>Reports</span>
+        <a href="#"><i class="fa fa-book"></i> <span>Reports</span>
           <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>

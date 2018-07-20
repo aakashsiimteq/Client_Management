@@ -19,7 +19,7 @@
                 </div>
             </div>
             <table class="table" class="text-center">
-                <thead>
+                <thead class="bg-primary">
                     <th>Invoice id</th>
                     <th>Project type</th>
                     <th>Project title</th>
