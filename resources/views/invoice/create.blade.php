@@ -35,7 +35,7 @@
                         <td>{{Form::text('project_id', $customer_invoice->project_name ,['class' => 'form-control', 'for' => 'project_name', 'style' => 'border: none; background-color: white;'])}}</td>
                         <td>{{Form::text('project_per_hour_cost', number_format($customer_invoice->project_per_hour_cost, 2, '.', '') ,['class' => 'form-control', 'for' => 'project_name', 'style' => 'border: none; background-color: white;'])}}</td>
                         <td>{{Form::text('project_estimate_cost', number_format($customer_invoice->project_estimate_cost, 2, '.', '') ,['class' => 'form-control', 'for' => 'project_name', 'style' => 'border: none; background-color: white;'])}}</td>
-                        <td>{{Form::text('project_final_cost', number_format($customer_invoice->project_estimate_cost, 2, '.', '') ,['class' => 'form-control', 'for' => 'project_name'])}}</td>
+                        <td>{{Form::text('project_final_cost', $customer_invoice->project_estimate_cost,['class' => 'form-control', 'for' => 'project_name', 'id' => 'project_final_cost'])}}</td>
                         <td>{{Form::text('invoice_reference', null ,['class' => 'form-control', 'for' => 'invoice_reference'])}}</td>
                     </tr>
                     <tr>
@@ -44,7 +44,9 @@
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td class="text-right"><b>Total:</b></td>
-                        <td class="text-left" id="invoice_total">A$ {{number_format($customer_invoice->project_estimate_cost, 2, '.', ',')}}</td>
+                        <td class="text-left" id="invoice_total">
+                            {{Form::text('invoice_total', $customer_invoice->project_estimate_cost, ['class'=>'form-control', 'id'=> 'invoice_total'])}}
+                        </td>
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
@@ -108,3 +110,13 @@
     </div>
 </div>
 @endsection
+@push('body_scripts')
+    <script>
+        $('#project_final_cost').keyup(function () {
+            var project_val = $(this).val();
+            var final_gst_value = (project_val * 10)/100;
+            $('#invoice_total').val(project_val);
+            $('#invoice_grand_total').val(project_val + final_gst_value);
+        });
+    </script>
+@endpush

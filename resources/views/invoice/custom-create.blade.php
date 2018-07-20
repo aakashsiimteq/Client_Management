@@ -35,7 +35,7 @@
                     <td style="border: 1px solid #dedede">{{Form::text('project_title', null ,['class' => 'form-control', 'for' => 'project_name'])}}</td>
                     <td style="border: 1px solid #dedede">{{Form::text('project_per_hour_cost', null ,['class' => 'form-control'])}}</td>
                     <td style="border: 1px solid #dedede">{{Form::text('project_estimate_cost', null ,['class' => 'form-control'])}}</td>
-                    <td style="border: 1px solid #dedede">{{Form::text('project_final_cost', null ,['class' => 'form-control', 'for' => 'project_name'])}}</td>
+                    <td style="border: 1px solid #dedede">{{Form::text('project_final_cost', null ,['class' => 'form-control', 'for' => 'project_name', 'id' => 'project_final_cost'])}}</td>
                     <td style="border: 1px solid #dedede">{{Form::text('invoice_reference', null ,['class' => 'form-control', 'for' => 'invoice_reference'])}}</td>
                 </tr>
                 <tr>
@@ -44,7 +44,7 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td class="text-right" style="border: 1px solid #dedede"><b>Total: A$</b></td>
-                    <td class="text-left" id="invoice_total_amount" style="border: 1px solid #dedede">{{Form::text('invoice_total_amount', null, ['class' => 'form-control'])}}</td>
+                    <td class="text-left" style="border: 1px solid #dedede">{{Form::text('invoice_total_amount', null, ['class' => 'form-control','id' => 'invoice_total_amount'])}}</td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
@@ -53,8 +53,8 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td class="text-right" style="border: 1px solid #dedede"><b>Grand total: A$</b></td>
-                    <td class="text-left" id="invoice_grand_total" style="border: 1px solid #dedede">
-                        {{Form::text('invoice_grand_total', null, ['class' => 'form-control'])}}
+                    <td class="text-left" style="border: 1px solid #dedede">
+                        {{Form::text('invoice_grand_total', null, ['class' => 'form-control', 'id' => 'invoice_grand_total'])}}
                     </td>
                     <td>&nbsp;</td>
                 </tr>
@@ -99,3 +99,11 @@
         </div>
     </div>
 @endsection
+@push('body_scripts')
+    <script>
+        $('#project_final_cost').keyup(function () {
+           $('#invoice_total_amount').val($(this).val());
+            $('#invoice_grand_total').val($(this).val());
+        });
+    </script>
+@endpush

@@ -10,7 +10,7 @@
             <input type="text" name="search_table" id="search_table" placeholder="Search Invoices" class="form-control" />
         </div>
         <div class="col-md-9">
-            <a href="{{route('custom-invoice.create')}}" class="btn btn-primary pull-right">Make custom invoice</a>
+            <a href="{{route('custom-invoice.create')}}" class="btn btn-primary pull-right">Make Custom invoice</a>
         </div>
     </div>
 

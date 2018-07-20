@@ -22,6 +22,8 @@ class CreatePaymentDetailsTable extends Migration
             $table->double('project_due_amount')->unsigned()->nullable(true);
             $table->date('last_amount_paid_on')->nullable(true);
             $table->enum('payment_status', ['Pending', 'Complete']);
+            $table->enum('payment_method', ['Manual', 'Card', 'Check']);
+            $table->mediumText('payment_comment');
             $table->timestamps();
             $table->engine = 'InnoDB';
             $table->charset = 'utf8';

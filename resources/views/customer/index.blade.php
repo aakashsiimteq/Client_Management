@@ -17,17 +17,17 @@
   </div>
   <div class="panel-body">
     <table class="table text-center table-bordered table-hover" id="searchtable">
-        <thead>
-        <tr>
-            <th>#</th>
-            <th>Customer number</th>
-            <th>Name</th>
-            <th>Type</th>
-            <th>ABN no.</th>
-            <th>Email</th>
-            <th>Contact</th>
-            <th>Action</th>
-        </tr>
+        <thead class="bg-primary" style="border: 1px solid #ccc">
+            <tr>
+                <th style="border: 1px solid #174993">#</th>
+                <th style="border: 1px solid #174993">Customer number</th>
+                <th style="border: 1px solid #174993">Name</th>
+                <th style="border: 1px solid #174993">Type</th>
+                <th style="border: 1px solid #174993">ABN no.</th>
+                <th style="border: 1px solid #174993">Email</th>
+                <th style="border: 1px solid #174993">Contact</th>
+                <th style="border: 1px solid #174993">Action</th>
+            </tr>
         </thead>
         @php
             $count = 0;
@@ -35,14 +35,14 @@
         <tbody>
             @foreach($customers as $customer)
                 <tr>
-                    <td>{{++$count}}</td>
-                    <td><a href="customer/{{$customer->customer_id}}/edit">{{$customer->customer_number}}</a></td>
-                    <td>{{$customer->customer_name}}</td>
-                    <td>{{$customer->customer_type}}</td>
-                    <td>{{$customer->customer_abn_no or '-'}}</td>
-                    <td>{{$customer->customer_email or '-'}}</td>
-                    <td>{{$customer->customer_contact_no}}</td>
-                    <td>
+                    <td style="border: 1px solid #dedede">{{++$count}}</td>
+                    <td style="border: 1px solid #dedede"><a href="customer/{{$customer->customer_id}}/edit">{{$customer->customer_number}}</a></td>
+                    <td style="border: 1px solid #dedede">{{$customer->customer_name}}</td>
+                    <td style="border: 1px solid #dedede">{{$customer->customer_type}}</td>
+                    <td style="border: 1px solid #dedede">{{$customer->customer_abn_no or '-'}}</td>
+                    <td style="border: 1px solid #dedede">{{$customer->customer_email or '-'}}</td>
+                    <td style="border: 1px solid #dedede">{{$customer->customer_contact_no}}</td>
+                    <td style="border: 1px solid #dedede">
                       {!!Html::linkRoute('customer.edit', 'Edit', array($customer->customer_id), array('class' => 'btn btn-primary btn-sm'))!!}
                       <div style="display: inline-block">
                         {!!Form::open(['route' => ['customer.destroy', $customer->customer_id], 'method' => 'DELETE'])!!}

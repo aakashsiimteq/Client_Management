@@ -8,6 +8,14 @@
     </div>
     <div class="panel-body">
         {!! Form::model($invoice, ['route' => ['invoice.update', $invoice->invoice_id], 'method' => 'PUT']) !!}
+            @php
+                $class = '';
+                if($customer_invoice->invoice_status == 'Open') {
+                    $class = 'disabled';
+                } else {
+                    $class = '';
+                }
+            @endphp
             <div class="row" style="margin-bottom: 2%;">
                 <div class="col-md-3">
                     {{Form::label('customer_name', 'Customer name')}}
@@ -18,7 +26,7 @@
                     <p style="font-size:20px;">{{$customer_invoice->invoice_status or 'Open'}}</p>
                 </div>
             </div>
-            <table class="table" class="text-center">
+            <table class="table text-center">
                 <thead class="bg-primary" style="border: 1px solid #ccc">
                 <tr>
                     <th style="border: 1px solid #174993">Invoice id</th>
@@ -35,9 +43,9 @@
                         <td style="border: 1px solid #dedede">{{Form::text('invoice_number', $customer_invoice->invoice_number ,['class' => 'form-control', 'for' => 'invoice_number', 'readonly'=>'true', 'style' => 'background-color: white;'])}}</td>
                         <td style="border: 1px solid #dedede">{{Form::text('project_type', $customer_invoice->project_type ,['class' => 'form-control', 'for' => 'project_type', 'style' => 'background-color: white;'])}}</td>
                         <td style="border: 1px solid #dedede">{{Form::text('project_id', $customer_invoice->project_name ,['class' => 'form-control', 'for' => 'project_name', 'style' => 'background-color: white;'])}}</td>
-                        <td style="border: 1px solid #dedede">{{Form::text('project_per_hour_cost', number_format($customer_invoice->project_per_hour_cost, 2, '.', '') ,['class' => 'form-control', 'for' => 'project_name', 'style' => 'background-color: white;'])}}</td>
-                        <td style="border: 1px solid #dedede">{{Form::text('project_estimate_cost', number_format($customer_invoice->project_estimate_cost, 2, '.', '') ,['class' => 'form-control', 'for' => 'project_name', 'style' => 'background-color: white;'])}}</td>
-                        <td style="border: 1px solid #dedede">{{Form::text('project_final_cost', number_format($customer_invoice->project_estimate_cost, 2, '.', '') ,['class' => 'form-control', 'for' => 'project_name'])}}</td>
+                        <td style="border: 1px solid #dedede">{{Form::text('project_per_hour_cost', $customer_invoice->project_per_hour_cost ,['class' => 'form-control', 'for' => 'project_name', 'style' => 'background-color: white;'])}}</td>
+                        <td style="border: 1px solid #dedede">{{Form::text('project_estimate_cost', $customer_invoice->project_estimate_cost ,['class' => 'form-control', 'for' => 'project_name', 'style' => 'background-color: white;'])}}</td>
+                        <td style="border: 1px solid #dedede">{{Form::text('project_final_cost', $customer_invoice->project_estimate_cost ,['class' => 'form-control', 'for' => 'project_name', 'id' => 'project_final_cost'])}}</td>
                         <td style="border: 1px solid #dedede">{{Form::text('invoice_reference', null ,['class' => 'form-control', 'for' => 'invoice_reference'])}}</td>
                     </tr>
                     <tr>
@@ -46,7 +54,9 @@
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td class="text-right" style="border: 1px solid #dedede"><b>Total:</b></td>
-                        <td class="text-left" id="invoice_total" style="border: 1px solid #dedede">A$ {{number_format($customer_invoice->project_estimate_cost, 2, '.', ',')}}</td>
+                        <td class="text-left" id="invoice_total" style="border: 1px solid #dedede">
+                            {{Form::text('invoice_total', $customer_invoice->project_estimate_cost, ['class'=>'form-control', 'id'=> 'invoice_total'])}}
+                        </td>
                         <td>&nbsp;</td>
                     </tr>
                     <tr>
@@ -68,8 +78,7 @@
                         <td>&nbsp;</td>
                         <td class="text-right" style="border: 1px solid #dedede"><b>Grand total:</b></td>
                         <td class="text-left" id="invoice_grand_total" style="border: 1px solid #dedede">
-                            {{Form::hidden('invoice_grand_total', $customer_invoice->invoice_grand_total)}}
-                            A$ {{number_format($customer_invoice->invoice_grand_total, 2, '.', ',')}}
+                            {{Form::text('invoice_grand_total', $customer_invoice->invoice_grand_total, ['class'=>'form-control', 'id'=> 'invoice_grand_total'])}}
                         </td>
                         <td>&nbsp;</td>
                     </tr>
@@ -103,7 +112,7 @@
             </div>
             <div class="row" style="margin-top: 2%;">
                 <div class="col-md-6">
-                    {{Form::submit('Update', ['class' => 'btn btn-primary btn-block'])}}
+                    {{Form::submit('Update', ['class' => 'btn btn-primary btn-block', 'disabled'=>$class])}}
                 </div>
                 <div class="col-md-6">
                     {!!Html::linkRoute('invoice.index', 'Cancel', null,['class' => 'btn btn-danger btn-block'])!!}
@@ -113,3 +122,13 @@
     </div>
 </div>
 @endsection
+@push('body_scripts')
+    <script>
+        $('#project_final_cost').keyup(function () {
+            var project_val = $(this).val();
+            var final_gst_value = (project_val * 10)/100;
+            $('#invoice_total').val(project_val);
+            $('#invoice_grand_total').val(project_val + final_gst_value);
+        });
+    </script>
+@endpush

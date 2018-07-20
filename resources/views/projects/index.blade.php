@@ -15,17 +15,19 @@
   </div>
   <div class="panel-body">
     <table class="table text-center table-bordered table-hover" id="searchtable">
-        <thead>
-            <th>Sr no.</th>
-            <th>Project id</th>
-            <th>Project title</th>
-            <th>Type</th>
-            <th>Customer name</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-            <th>Estimated cost</th>
-            <th>Status</th>
-            <th>Action</th>
+        <thead class="bg-primary" style="border: 1px solid #ccc">
+            <tr>
+                <th style="border: 1px solid #174993">#</th>
+                <th style="border: 1px solid #174993">Project id</th>
+                <th style="border: 1px solid #174993">Project title</th>
+                <th style="border: 1px solid #174993">Type</th>
+                <th style="border: 1px solid #174993">Customer name</th>
+                <th style="border: 1px solid #174993">Start Date</th>
+                <th style="border: 1px solid #174993">End Date</th>
+                <th style="border: 1px solid #174993">Estimated cost</th>
+                <th style="border: 1px solid #174993">Status</th>
+                <th style="border: 1px solid #174993">Action</th>
+            </tr>
         </thead>
         @php
             $count = 0;
@@ -33,16 +35,16 @@
         <tbody>
             @foreach($projects as $project)
                 <tr>
-                    <td>{{++$count}}</td>
-                    <td><a href="project/{{$project->project_id}}/edit">{{$project->project_number}}</a></td>
-                    <td>{{$project->project_name}}</td>
-                    <td>{{$project->project_type}}</td>
-                    <td>{{$project->customer_name}}</td>
-                    <td>{{\Carbon\Carbon::parse($project->project_start_date)->toFormattedDateString()}}</td>
-                    <td>{{\Carbon\Carbon::parse($project->project_end_date)->toFormattedDateString()}}</td>
-                    <td>A$ {{$project->project_estimate_cost}}</td>
-                    <td>{{$project->project_status}}</td>
-                    <td>
+                    <td style="border: 1px solid #dedede">{{++$count}}</td>
+                    <td style="border: 1px solid #dedede"><a href="project/{{$project->project_id}}/edit">{{$project->project_number}}</a></td>
+                    <td style="border: 1px solid #dedede">{{$project->project_name}}</td>
+                    <td style="border: 1px solid #dedede">{{$project->project_type}}</td>
+                    <td style="border: 1px solid #dedede">{{$project->customer_name}}</td>
+                    <td style="border: 1px solid #dedede">{{\Carbon\Carbon::parse($project->project_start_date)->toFormattedDateString()}}</td>
+                    <td style="border: 1px solid #dedede">{{\Carbon\Carbon::parse($project->project_end_date)->toFormattedDateString()}}</td>
+                    <td style="border: 1px solid #dedede">A$ {{$project->project_estimate_cost}}</td>
+                    <td style="border: 1px solid #dedede">{{$project->project_status}}</td>
+                    <td style="border: 1px solid #dedede">
                       {!!Html::linkRoute('project.edit', 'Edit', array($project->project_id), array('class' => 'btn btn-primary btn-sm'))!!}
                       <div style="display: inline-block">
                         {!!Form::open(['route' => ['project.destroy', $project->project_id], 'method' => 'DELETE'])!!}
