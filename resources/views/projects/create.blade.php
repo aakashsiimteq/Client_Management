@@ -47,19 +47,19 @@
     <div class="row" style="margin-top:2%;">
         <div class="col-md-3">
             {{Form::label('project_start_date', 'Start Date')}}
-            {{Form::date('project_start_date', null ,['class' => 'form-control', 'for' => 'project_start_date','required' => 'true'])}}
+            {{Form::date('project_start_date', null ,['class' => 'form-control', 'for' => 'project_start_date','required' => 'true', 'id'=>'project_start_date'])}}
         </div>
         <div class="col-md-3">
             {{Form::label('project_end_date', 'End Date')}}
-            {{Form::date('project_end_date', null ,['class' => 'form-control', 'for' => 'project_end_date','required' => 'true'])}}
+            {{Form::date('project_end_date', null ,['class' => 'form-control', 'for' => 'project_end_date','required' => 'true', 'id'=>'project_end_date'])}}
         </div>
         <div class="col-md-3">
             {{Form::label('project_per_hour_cost', 'Per Hour Cost')}}
-            {{Form::text('project_per_hour_cost', null ,['class' => 'form-control', 'for' => 'project_per_hour_cost','required' => 'true', 'placeholder' => 'Cost per Hour','onkeypress' => 'return isNumberKey(event)','onblur' => 'calculateTotal()'])}}
+            {{Form::text('project_per_hour_cost', null ,['class' => 'form-control', 'for' => 'project_per_hour_cost','required' => 'true', 'placeholder' => 'Cost per Hour','onkeypress' => 'return isNumberKey(event)','onblur' => 'calculateTotal()', 'id' => 'project_per_hour_cost'])}}
         </div>
         <div class="col-md-3">
-            {{Form::label('project_estimate_cost', 'Total Estimated Cost')}}
-            {{Form::text('project_estimate_cost', null ,['class' => 'form-control', 'for' => 'project_estimate_cost','required' => 'true','placeholder' => 'Total Estimated Cost'])}}
+            {{Form::label('project_estimate_cost', 'Project Cost')}}
+            {{Form::text('project_estimate_cost', null ,['class' => 'form-control', 'for' => 'project_estimate_cost','required' => 'true','placeholder' => 'Total Estimated Cost', 'id'=>'project_estimate_cost'])}}
         </div>
     </div>
     <div class="row" style="margin-top:2%;">
@@ -77,6 +77,61 @@
 </div>
 
 @endsection
+@push('body_scripts')
+    @push('body_scripts')
+        <script>
+            $('#project_per_hour_cost').keyup(function () {
+                var perHourCost = $('#project_per_hour_cost').val();
+                var project_end_date = $('#project_end_date').val();
+                var project_start_date = $('#project_start_date').val();
+                var endDate = Date.parse(project_end_date);
+                var startDate = Date.parse(project_start_date);
+                var dateDiff = new Date(endDate - startDate);
+                var days  = dateDiff/1000/60/60/24;
+                var totalHours = days * 9;
+                var finalCost = totalHours*perHourCost;
+                $('#project_estimate_cost').val(finalCost.toFixed(2));
+            });
+
+            $('#project_start_date').change(function () {
+                var perHourCost = $('#project_per_hour_cost').val();
+                var project_end_date = $('#project_end_date').val();
+                var project_start_date = $('#project_start_date').val();
+                var endDate = Date.parse(project_end_date);
+                var startDate = Date.parse(project_start_date);
+                var dateDiff = new Date(endDate - startDate);
+                var days  = dateDiff/1000/60/60/24;
+                var totalHours = days * 9;
+                var finalCost = totalHours*perHourCost;
+                $('#project_estimate_cost').val(finalCost.toFixed(2));
+            });
+            $('#project_end_date').change(function () {
+                var perHourCost = $('#project_per_hour_cost').val();
+                var project_end_date = $('#project_end_date').val();
+                var project_start_date = $('#project_start_date').val();
+                var endDate = Date.parse(project_end_date);
+                var startDate = Date.parse(project_start_date);
+                var dateDiff = new Date(endDate - startDate);
+                var days  = dateDiff/1000/60/60/24;
+                var totalHours = days * 9;
+                var finalCost = totalHours*perHourCost;
+                $('#project_estimate_cost').val(finalCost.toFixed(2));
+            });
+            $('#project_estimate_cost').keyup(function () {
+                var estimateCost = $('#project_estimate_cost').val();
+                var project_end_date = $('#project_end_date').val();
+                var project_start_date = $('#project_start_date').val();
+                var endDate = Date.parse(project_end_date);
+                var startDate = Date.parse(project_start_date);
+                var dateDiff = new Date(endDate - startDate);
+                var days  = dateDiff/1000/60/60/24;
+                var totalHours = days * 9;
+                var finalPerHourCost = estimateCost/totalHours;
+                $('#project_per_hour_cost').val(finalPerHourCost.toFixed(2));
+            });
+        </script>
+    @endpush
+@endpush
 @section('custom_scripts')
     @parent
     <!-- The rest of your scripts -->

@@ -42,7 +42,13 @@
                         <td style="border: 1px solid #dedede">{{$invoice->project_title}}</td>
                         <td style="border: 1px solid #dedede">A$ {{number_format($invoice->invoice_grand_total, 2, '.', ',')}}</td>
                         <td style="border: 1px solid #dedede">{{\Carbon\Carbon::parse($invoice->invoice_date)->toFormattedDateString()}}</td>
-                        <td style="border: 1px solid #dedede">{{$invoice->invoice_status}}</td>
+                        <td style="border: 1px solid #dedede">
+                            {!! Form::open(['route' => ['custom-invoice.update', $invoice->custom_invoice_id], 'method' => 'PUT', 'id'=>'frm_change_status']) !!}
+                                {{Form::hidden('update_type', 'from_invoice_index')}}
+                                {{Form::hidden('custom_invoice_id', $invoice->custom_invoice_id)}}
+                                {{Form::select('invoice_status', ['Open'=>'Open', 'Close'=>'Close'], $invoice->invoice_status, ['class'=>'form-control', 'id' => "invoice_status_$invoice->custom_invoice_id", 'change'=>"javascript:changeStatus(this)"])}}
+                            {!! Form::close() !!}
+                        </td>
                         <td style="border: 1px solid #dedede">
                             {!!Html::linkRoute('custom-invoice.edit', 'Edit', array($invoice->custom_invoice_id), array('class' => 'btn btn-primary btn-sm'))!!}
                             <div style="display: inline-block">
@@ -51,7 +57,6 @@
                             {!!Form::close()!!}
                             </div>
                             {!!Html::linkRoute('custom-invoice.edit', 'Print', array($invoice->custom_invoice_id), array('class' => 'btn btn-warning btn-sm'))!!}
-
                         </td>
                     </tr>
                 @endforeach
@@ -61,3 +66,22 @@
         </div>
     </div>
 @endsection
+@push('body_scripts')
+    <script>
+
+        function changeStatus(obj) {
+            console.log(obj);
+        }
+
+        $('#invoice_status').change(function () {
+            var value = $('#invoice_status').find(':selected').text();
+            if(value == 'Close') {
+                var confirmation = confirm('Are you sure, you want to close this invoice?');
+                if(confirmation == true) {
+                    $('[name="custom_invoice_status"]').val(value);
+                    $('#frm_change_status').submit();
+                }
+            }
+        });
+    </script>
+@endpush
