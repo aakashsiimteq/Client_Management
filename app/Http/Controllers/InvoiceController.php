@@ -31,7 +31,7 @@ class InvoiceController extends Controller
         $invoice_number = Invoice::max('invoice_number');
 
         if($invoice_number == null){
-            $invoice_number = "INV1001";
+            $invoice_number = "INV101";
         
         }else{
             $invoice_number = (int)(substr($invoice_number,3));
@@ -53,6 +53,7 @@ class InvoiceController extends Controller
         $invoices = DB::table('invoices')
                     ->leftJoin('customers', 'customers.customer_number', '=', 'invoices.customer_id')
                     ->leftJoin('projects', 'projects.project_number', '=', 'invoices.project_id')
+                    ->where('invoice_status', '=', 'Open')
                     ->get();
         return view('invoice.index', compact('invoices', 'page_title', 'page_description', 'invoice_number', 'custom_invoice_number'));
     }

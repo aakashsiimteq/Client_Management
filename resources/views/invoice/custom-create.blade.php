@@ -31,11 +31,11 @@
                 <tbody style="border: 1px solid #dedede">
                 <tr>
                     <td style="border: 1px solid #dedede">{{Form::text('custom_invoice_number', $custom_invoice_number ,['class' => 'form-control', 'for' => 'invoice_number', 'readonly'=>'true', 'style' => 'border: none; background-color: white;'])}}</td>
-                    <td style="border: 1px solid #dedede">{{Form::select('project_type',  ['Website' => 'Website', 'Software' => 'Software', 'Web service' => 'Web service', 'Cloud' => 'Cloud', 'Computer Maintenance' => 'Computer Maintenance', 'Network Installation' => 'Network Installation','Other' => 'Other'], null  ,['class' => 'form-control', 'for' => 'project_type', 'placeholder' => 'Select Project Type'])}}</td>
-                    <td style="border: 1px solid #dedede">{{Form::text('project_title', null ,['class' => 'form-control', 'for' => 'project_name'])}}</td>
+                    <td style="border: 1px solid #dedede">{{Form::select('project_type',  ['Website' => 'Website', 'Software' => 'Software', 'Web service' => 'Web service', 'Cloud' => 'Cloud', 'Computer Maintenance' => 'Computer Maintenance', 'Network Installation' => 'Network Installation','Other' => 'Other'], null  ,['class' => 'form-control', 'for' => 'project_type', 'placeholder' => 'Select Project Type', 'required'=>true])}}</td>
+                    <td style="border: 1px solid #dedede">{{Form::text('project_title', null ,['class' => 'form-control', 'for' => 'project_name', 'required'=>true])}}</td>
                     <td style="border: 1px solid #dedede">{{Form::text('project_per_hour_cost', null ,['class' => 'form-control'])}}</td>
-                    <td style="border: 1px solid #dedede">{{Form::text('project_estimate_cost', null ,['class' => 'form-control'])}}</td>
-                    <td style="border: 1px solid #dedede">{{Form::text('project_final_cost', null ,['class' => 'form-control', 'for' => 'project_name', 'id' => 'project_final_cost'])}}</td>
+                    <td style="border: 1px solid #dedede">{{Form::text('project_estimate_cost', null ,['class' => 'form-control', 'required'=>true])}}</td>
+                    <td style="border: 1px solid #dedede">{{Form::text('project_final_cost', null ,['class' => 'form-control', 'for' => 'project_name', 'id' => 'project_final_cost', 'required'=>true])}}</td>
                     <td style="border: 1px solid #dedede">{{Form::text('invoice_reference', null ,['class' => 'form-control', 'for' => 'invoice_reference'])}}</td>
                 </tr>
                 <tr>
@@ -44,7 +44,7 @@
                     <td>&nbsp;</td>
                     <td>&nbsp;</td>
                     <td class="text-right" style="border: 1px solid #dedede"><b>Total: A$</b></td>
-                    <td class="text-left" style="border: 1px solid #dedede">{{Form::text('invoice_total_amount', null, ['class' => 'form-control','id' => 'invoice_total_amount'])}}</td>
+                    <td class="text-left" style="border: 1px solid #dedede">{{Form::text('invoice_total_amount', null, ['class' => 'form-control','id' => 'invoice_total_amount', 'required'=>true])}}</td>
                     <td>&nbsp;</td>
                 </tr>
                 <tr>
@@ -54,7 +54,7 @@
                     <td>&nbsp;</td>
                     <td class="text-right" style="border: 1px solid #dedede"><b>Grand total: A$</b></td>
                     <td class="text-left" style="border: 1px solid #dedede">
-                        {{Form::text('invoice_grand_total', null, ['class' => 'form-control', 'id' => 'invoice_grand_total'])}}
+                        {{Form::text('invoice_grand_total', null, ['class' => 'form-control', 'id' => 'invoice_grand_total', 'required'=>true])}}
                     </td>
                     <td>&nbsp;</td>
                 </tr>
@@ -65,7 +65,7 @@
 
                 <div class="col-md-4">
                     {{Form::label('invoice_date', 'Invoice Date')}}
-                    {{Form::date('invoice_date', null, ['class' => 'form-control'])}}
+                    {{Form::date('invoice_date', null, ['class' => 'form-control', 'required'=>true])}}
                 </div>
                 <div class="col-md-4">
                     {{Form::label('invoice_copy_type', 'Invoice Copy Type')}}
@@ -77,13 +77,13 @@
                 </div>
                 <div class="col-md-4">
                     {{Form::label('invoice_billing_address', 'Billing Address')}}
-                    {{Form::text('invoice_billing_address', null, ['class' => 'form-control'])}}
+                    {{Form::text('invoice_billing_address', null, ['class' => 'form-control', 'required'=>true])}}
                 </div>
             </div>
             <div class="row" style="margin-top:2%">
                 <div class="col-md-6">
                     {{Form::label('project_desc', 'Project Description')}}
-                    {{Form::textarea('project_desc', null, ['class' => 'form-control'])}}
+                    {{Form::textarea('project_desc', null, ['class' => 'form-control', 'required'=>true])}}
                 </div>
                 <div class="col-md-6">
                     {{Form::label('invoice_comments', 'Comments')}}

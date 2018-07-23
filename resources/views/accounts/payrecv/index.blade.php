@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                 <a class="btn btn-primary btn-sm pull-right" href="javascript:check()" style="margin-left: 2px;"><i class="fa fa-floppy-o"></i>&nbsp;Receive Payment</a>
-                <a class="btn btn-info btn-sm pull-right" href="javascript:PaymentReceive.makeAdvancePayment()"><i class="fa fa-back"></i>&nbsp;Make Advance Payment</a>
+                <a class="btn btn-info btn-sm pull-right" id="rcvbtn" href="javascript:PaymentReceive.makeAdvancePayment()"><i class="fa fa-back"></i>&nbsp;Make Advance Payment</a>
             </div>
         </div>
 
@@ -13,25 +13,25 @@
             <div class="col-lg-12">
                 <table id='paymenttable'>
                     <tr>
-                        <td width="56%">&nbsp{!!Form::label('amount_received', 'Amount Received',['style'=>'font-size: 20px;'])!!}&nbsp</td>
+                        <td width="56%">&nbsp{!!Form::label('amount_received', 'Amount Received',['style'=>'font-size: 15px;'])!!}&nbsp</td>
                         <td> {!!Form::number('amount_received', null, ['id'=>'amtrec', 'class'=>'form-control text-right', 'min'=>'0.0', 'required' => 'required', 'step'=>'0.01'])!!}</td>
                     </tr>
                     <tr id="paymenttype" style="margin-top: 10px;">
-                        <td>&nbsp{!!Form::label('paymenttype','Payment Type ',['style'=>'font-size: 20px;'])!!}</td>
+                        <td>&nbsp{!!Form::label('paymenttype','Payment Type ',['style'=>'font-size: 15px;'])!!}</td>
                         <td>{!!Form::select('paymenttype',['Payment' => 'Payment'],null, ['class'=>'form-control', 'data-size'=>"4", 'id'=>'paytype', 'onchange'=>'insertsr()']) !!}</td>
                     </tr>
                     <tr>
-                        <td>&nbsp{!! Form::label('paymentmethod','Payment Method', ['style'=>'font-size: 20px;'])!!}</td>
+                        <td>&nbsp{!! Form::label('paymentmethod','Payment Method', ['style'=>'font-size: 15px;'])!!}</td>
                         <td>{!!Form::select('paymentmethod', ['Manual' => 'Manual','Card' => 'Card', 'Check'=>'Check'],null,['class'=>'form-control', 'data-size'=>"4", 'id'=>'paymethod'])!!}</td>
                     </tr>
                     <tr>
-                        <td>&nbsp{!!Form::label('date','Payment Date',['style'=>'font-size: 20px;'])!!}</td>
+                        <td>&nbsp{!!Form::label('date','Payment Date',['style'=>'font-size: 15px;'])!!}</td>
                         <td>
-                            {!! Form::date('date', null, ['class' => 'form-control', 'required'=>'1']) !!}
+                            {!! Form::date('date', null, ['class' => 'form-control', 'required'=>'required']) !!}
                         </td>
                     </tr>
                     <tr>
-                        <td>&nbsp{!!Form::label('comments','Comments', ['style'=>'font-size: 20px;'])!!}</td>
+                        <td>&nbsp{!!Form::label('comments','Comments', ['style'=>'font-size: 15px;'])!!}</td>
                         <td><input type='textarea' rows='10' cols='60' name='comments' class="form-control"></td>
                     </tr>
                 </table>
@@ -63,20 +63,16 @@
                             <td style="border: 1px solid #dedede" class="text-center"><a href="/admin/invoice/{{$inv->invoice_id}}/edit" target="_blank">{{$inv->invoice_number}}</a></td>
                             <td style="border: 1px solid #dedede" class="text-center">{{\Carbon\Carbon::parse($inv->created_at)->toFormattedDateString()}}</td>
                             <td style="border: 1px solid #dedede" class="text-right">
-                                <i class="fa fa-usd width-15 pull-left"></i>
-                                {!! Form::number("inv_amount[$inv->invoice_id]", $inv->invoice_grand_total, ['class'=>'form-control input-xs text-right width-100', 'readonly'=>'1', 'min'=>'0.0', 'step'=>'0.01']) !!}
+                                {!! Form::number("inv_amount[$inv->invoice_id]", number_format($inv->invoice_grand_total, 2), ['class'=>'form-control input-xs text-right width-100', 'readonly'=>'1', 'min'=>'0.0', 'step'=>'0.01']) !!}
                             </td>
                             <td style="border: 1px solid #dedede" class="text-right">
-                                <i class="fa fa-usd width-15 pull-left"></i>
-                                {!! Form::number("inv_paid[$inv->invoice_id]", $inv->invoice_paid_amount, ['class'=>'form-control input-xs text-right width-100', 'readonly'=>'1', 'min'=>'0.0', 'step'=>'0.01']) !!}
+                                {!! Form::number("inv_paid[$inv->invoice_id]", number_format($inv->invoice_paid_amount, 2), ['class'=>'form-control input-xs text-right width-100', 'readonly'=>'1', 'min'=>'0.0', 'step'=>'0.01']) !!}
                             </td>
                             <td style="border: 1px solid #dedede" class="text-right darker-bg">
-                                <i class="fa fa-usd width-15 pull-left"></i>
-                                {!! Form::number("due[$inv->invoice_id]", $inv->invoice_due_amount, ['class'=>'form-control input-xs text-right width-100', 'readonly'=>'1', 'min'=>'0.0', 'step'=>'0.01']) !!}
+                                {!! Form::number("due[$inv->invoice_id]", number_format($inv->invoice_due_amount, 2), ['class'=>'form-control input-xs text-right width-100', 'readonly'=>'1', 'min'=>'0.0', 'step'=>'0.01']) !!}
                                 {!! Form::hidden("$inv->invoice_id", $inv->invoice_due_amount) !!}
                             </td>
                                 <td style="border: 1px solid #dedede" class="text-right">
-                                    <i class="fa fa-usd width-15 pull-left"></i>
                                     {!! Form::number("invoice_$inv->invoice_id", null, ['class'=>'form-control input-xs text-right width-100 aamt', "id"=>"inv_$inv->invoice_id", 'onblur'=>'checkClear(this.value)', 'min'=>'0.0', 'step'=>'0.01']) !!}
                                 </td>
                                 <td style="border: 1px solid #dedede" class="text-center">

@@ -18,7 +18,7 @@ class CreateProjectsTable extends Migration
             $table->string('project_number')->unique();
             $table->integer('customer_id')->unsigned();
             $table->string('project_name');
-            $table->enum('project_type', ['Website', 'Software', 'Web service', 'Cloud', 'Network Installation', 'Computer Maintenance','Other']);
+            $table->enum('project_type', ['Website', 'Software', 'Web service', 'Cloud', 'Network Installation', 'Computer Maintenance','Mobile Application', 'Hire Modal','Other']);
             $table->text('project_details')->nullable(true);
             $table->enum('project_status', ['In Progress', 'Complete'])->nullable(true);
             $table->date('project_start_date')->nullable(true);

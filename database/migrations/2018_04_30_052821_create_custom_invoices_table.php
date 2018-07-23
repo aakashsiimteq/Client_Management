@@ -19,10 +19,10 @@ class CreateCustomInvoicesTable extends Migration
             $table->string('custom_customer_name')->nullable(true);
             $table->enum('project_type', ['Website', 'Software', 'Web service', 'Cloud', 'Network Installation', 'Computer Maintenance','Other']);
             $table->string('project_title');
-            $table->double('project_per_hour_cost');
+            $table->double('project_per_hour_cost')->nullable(true);
             $table->double('project_estimate_cost');
             $table->double('project_final_cost');
-            $table->string('invoice_reference');
+            $table->string('invoice_reference')->nullable(true);
             $table->double('invoice_total_amount');
             $table->double('invoice_gst_rate')->nullable(true);
             $table->double('invoice_grand_total');

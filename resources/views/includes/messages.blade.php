@@ -33,6 +33,18 @@
     <strong>{{Session::get('not_received')}}</strong>
   </div>
 @endif
+@if(Session::has('grater_received'))
+  <div class="alert alert-danger" role="alert">
+    <strong>{{Session::get('grater_received')}}</strong>
+  </div>
+@endif
+
+@if(Session::has('exists'))
+  <div class="alert alert-danger" role="alert">
+    <strong>{{Session::get('exists')}}</strong>
+  </div>
+@endif
+
 @if(Session::has('errors'))
   <div class="alert alert-danger" role="alert">
     @foreach ($iterable as $key => $value)

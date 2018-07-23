@@ -9,11 +9,11 @@
     <div class="panel-body">
         {!! Form::model($invoice, ['route' => ['invoice.update', $invoice->invoice_id], 'method' => 'PUT']) !!}
             @php
-                $class = '';
-                if($customer_invoice->invoice_status == 'Open') {
-                    $class = 'disabled';
+                $class = true;
+                if($invoice->invoice_status == 'Open') {
+                    $class = false;
                 } else {
-                    $class = '';
+                    $class = true;
                 }
             @endphp
             <div class="row" style="margin-bottom: 2%;">
@@ -53,7 +53,7 @@
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
-                        <td class="text-right" style="border: 1px solid #dedede"><b>Total:</b></td>
+                        <td class="text-right" style="border: 1px solid #dedede; text-align: right !important;"><b>Total:</b></td>
                         <td class="text-left" id="invoice_total" style="border: 1px solid #dedede">
                             {{Form::text('invoice_total', $customer_invoice->project_estimate_cost, ['class'=>'form-control', 'id'=> 'invoice_total'])}}
                         </td>
@@ -64,8 +64,8 @@
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
-                        <td class="text-right" style="border: 1px solid #dedede"><b>GST:</b></td>
-                        <td class="text-left" style="border: 1px solid #dedede">
+                        <td class="text-right" style="border: 1px solid #dedede; text-align: right !important;"><b>GST:</b></td>
+                        <td class="text-left" style="border: 1px solid #dedede; text-align: left !important;">
                             {{Form::hidden('invoice_gst_rate', $customer_invoice->invoice_gst_rate)}}
                             {{$customer_invoice->invoice_gst_rate}}%
                         </td>
@@ -76,7 +76,7 @@
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
                         <td>&nbsp;</td>
-                        <td class="text-right" style="border: 1px solid #dedede"><b>Grand total:</b></td>
+                        <td class="text-right" style="border: 1px solid #dedede; text-align: right !important;"><b>Grand total:</b></td>
                         <td class="text-left" id="invoice_grand_total" style="border: 1px solid #dedede">
                             {{Form::text('invoice_grand_total', $customer_invoice->invoice_grand_total, ['class'=>'form-control', 'id'=> 'invoice_grand_total'])}}
                         </td>

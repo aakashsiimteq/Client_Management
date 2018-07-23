@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\PaymentDetail;
 use App\PaymentReceive;
 use Illuminate\Http\Request;
 use App\Project;
@@ -117,7 +118,8 @@ class InvoiceForProjectController extends Controller
             $payment->last_amount_paid_on = null;
             $payment->payment_status = "Pending";
             $payment->save();
-
+            $lastPayment = PaymentDetail::where('project_id', '=', $project->project_id)->get();
+            dd($lastPayment);
         return view('invoice.create', compact('page_title', 'page_description', 'customer_invoice', 'invoice'));
         }
     }

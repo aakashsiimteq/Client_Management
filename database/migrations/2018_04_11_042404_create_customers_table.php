@@ -20,7 +20,7 @@ class CreateCustomersTable extends Migration
             $table->enum('customer_type', ['Company', 'Individual'])->nullable(true);
             $table->string('customer_abn_no')->nullable(true);
             $table->string('customer_email')->unique()->nullable(true);
-            $table->string('customer_contact_no')->unique()->nullable(true);
+            $table->string('customer_contact_no')->nullable(true);
             $table->string('customer_physical_address')->nullable(true);
             $table->string('customer_billing_address')->nullable(true);
             $table->timestamps();

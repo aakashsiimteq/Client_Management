@@ -50,6 +50,10 @@ class PaymentReceiveController extends Controller
 
         foreach ($invs as $inv) {
             $received_amount = $request->get("invoice_$inv->invoice_id");
+            if ($inv->invoice_grand_total < floatval($received_amount)) {
+                Session::flash('grater_received', 'Received amount should not be grater than invoiced amount!');
+                return redirect()->back();
+            }
             $payment = PaymentReceive::with([])
                 ->where('project_id', $inv->project_id)->first();
             $payment->invoice_paid_amount = $payment->invoice_paid_amount + floatval($received_amount);

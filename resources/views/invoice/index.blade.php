@@ -29,7 +29,7 @@
                         <th style="border: 1px solid #174993">Project name</th>
                         <th style="border: 1px solid #174993">Project type</th>
                         <th style="border: 1px solid #174993">Invoice amount</th>
-                        <th style="border: 1px solid #174993">Inc. GST</th>
+                        <th style="border: 1px solid #174993">Status</th>
                         <th style="border: 1px solid #174993">Action</th>
                     </tr>
                 </thead>
@@ -43,11 +43,7 @@
                             <td style="border: 1px solid #dedede">{{$invoice->project_name}}</td>
                             <td style="border: 1px solid #dedede">{{$invoice->project_type}}</td>
                             <td style="border: 1px solid #dedede">A$ {{number_format($invoice->invoice_grand_total, 2, '.', ',')}}</td>
-                            <td style="border: 1px solid #dedede">
-                                @if($invoice->invoice_gst_rate > 0)
-                                    Yes
-                                @endif
-                            </td>
+                            <td style="border: 1px solid #dedede">{{$invoice->invoice_status}}</td>
                             <td style="border: 1px solid #dedede">
                                 {!!Html::linkRoute('invoice.edit', 'Edit', array($invoice->invoice_id), array('class' => 'btn btn-primary btn-sm'))!!}
                                 <div style="display: inline-block">

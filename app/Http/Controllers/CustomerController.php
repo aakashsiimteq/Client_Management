@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Customer;
-use Session;
+use Illuminate\Support\Facades\Session;
 
 class CustomerController extends Controller
 {
@@ -56,21 +56,27 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        $customer = new Customer();
-        $customer->customer_number = $request->customer_no;
-        $customer->customer_name = $request->customer_name;
-        $customer->customer_type = $request->customer_type;
-        $customer->customer_abn_no = $request->customer_abn_no;
-        $customer->customer_email = $request->customer_email;
-        $customer->customer_contact_no = $request->customer_contact_no;
-        $customer->customer_physical_address = $request->customer_physical_address;
-        $customer->customer_billing_address = $request->customer_billing_address;
-        $customer->save();
+        $existingEmail = Customer::where('customer_email', '=', $request->customer_email)->first();
 
-        Session::flash('registered', 'Registered successfully!');
+        if(empty($existingEmail) == false) {
+            Session::flash('exists', "Could not register successfully! $request->customer_email is already exists.");
+            return redirect()->back();
+        } else {
+            $customer = new Customer();
+            $customer->customer_number = $request->customer_no;
+            $customer->customer_name = $request->customer_name;
+            $customer->customer_type = $request->customer_type;
+            $customer->customer_abn_no = $request->customer_abn_no;
+            $customer->customer_email = $request->customer_email;
+            $customer->customer_contact_no = $request->customer_contact_no;
+            $customer->customer_physical_address = $request->customer_physical_address;
+            $customer->customer_billing_address = $request->customer_billing_address;
+            $customer->save();
 
-        return redirect()->route('customer.index');
+            Session::flash('registered', 'Registered successfully!');
 
+            return redirect()->route('customer.index');
+        }
     }
 
     /**
