@@ -24,7 +24,7 @@
                 <th style="border: 1px solid #174993">Customer name</th>
                 <th style="border: 1px solid #174993">Start Date</th>
                 <th style="border: 1px solid #174993">End Date</th>
-                <th style="border: 1px solid #174993">Estimated cost</th>
+                <th style="border: 1px solid #174993">Project cost</th>
                 <th style="border: 1px solid #174993">Status</th>
                 <th style="border: 1px solid #174993">Action</th>
             </tr>

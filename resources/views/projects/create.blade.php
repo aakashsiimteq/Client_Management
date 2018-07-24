@@ -24,7 +24,7 @@
     <div class="row" style="margin-top:2%;">
         <div class="col-md-4">
             {{Form::label('project_type', 'Project Type')}}
-            {{Form::select('project_type', ['Website' => 'Website', 'Software' => 'Software', 'Web service' => 'Web service', 'Cloud' => 'Cloud', 'Computer Maintenance' => 'Computer Maintenance', 'Network Installation' => 'Network Installation','Mobile Application' => 'Mobile Application','Hire Modal' => 'Hire Modal','Other' => 'Other'], null ,['class' => 'form-control','required' => 'true','placeholder' => 'Select Project Type'])}}
+            {{Form::select('project_type', ['Website' => 'Website', 'Software' => 'Software', 'Web service' => 'Web service', 'Cloud' => 'Cloud', 'Computer Maintenance' => 'Computer Maintenance', 'Network Installation' => 'Network Installation','Mobile Application' => 'Mobile Application','Hire Model' => 'Hire Model','Other' => 'Other'], null ,['class' => 'form-control','required' => 'true','id'=>'project_type','placeholder' => 'Select Project Type'])}}
         </div>
         <div class="col-md-4">
             {{Form::label('project_name', 'Project Name')}}
@@ -55,7 +55,7 @@
         </div>
         <div class="col-md-3">
             {{Form::label('project_per_hour_cost', 'Per Hour Cost')}}
-            {{Form::text('project_per_hour_cost', null ,['class' => 'form-control', 'for' => 'project_per_hour_cost','required' => 'true', 'placeholder' => 'Cost per Hour','onkeypress' => 'return isNumberKey(event)','onblur' => 'calculateTotal()', 'id' => 'project_per_hour_cost'])}}
+            {{Form::text('project_per_hour_cost', null ,['class' => 'form-control', 'for' => 'project_per_hour_cost', 'placeholder' => 'Cost per Hour','onkeypress' => 'return isNumberKey(event)','onblur' => 'calculateTotal()', 'id' => 'project_per_hour_cost'])}}
         </div>
         <div class="col-md-3">
             {{Form::label('project_estimate_cost', 'Project Cost')}}
@@ -148,6 +148,16 @@
             }
           })
         });
+        $("#project_type").on('change', function() {
+          var projectType = $(this).val();
+          if ( projectType === 'Hire Model') {
+            console.log('inside hire modal');
+            $('#project_per_hour_cost').prop('required',true);;
+          }else {
+              console.log('outside hire modal');
+            $('#project_per_hour_cost').prop('required',false);;
+          }
+        });
         function calculateTotal() {
           var start = $('#project_start_date').val();
           var end = $('#project_end_date').val();
@@ -160,7 +170,7 @@
 
           // end - start returns difference in milliseconds
           var diff = new Date(end_date - start_date);
-          
+
           // get days
           var days = diff/1000/60/60/24;
           alert(days);

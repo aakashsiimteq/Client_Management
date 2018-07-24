@@ -89,18 +89,22 @@
                             <td style="border: 1px solid #dedede" class="text-center">{{$inv->customer_name or ''}}</td>
                             <td style="border: 1px solid #dedede" class="text-center"><a href="/admin/invoice/{{$inv->invoice_id}}/edit" target="_blank">{{$inv->invoice_number}}</a></td>
                             <td style="border: 1px solid #dedede" class="text-center">{{\Carbon\Carbon::parse($inv->created_at)->toFormattedDateString()}}</td>
-                            <td style="border: 1px solid #dedede" class="text-right">
-                                {!! Form::number("inv_amount[$inv->invoice_id]", number_format($inv->invoice_grand_total, 2), ['class'=>'form-control input-xs text-right width-100', 'readonly'=>'1', 'min'=>'0.0', 'step'=>'0.01']) !!}
+                            <td style="border: 1px solid #dedede" class="">
+                              <span class="col-md-2 text-left" style="margin-top: 3.5%;padding-right: 20px;font-size: 15px;">A$</span>
+                              {!! Form::number("inv_amount[$inv->invoice_id]", number_format((float)$inv->invoice_grand_total, 2,'.',''), ['class'=>'form-control input-xs text-right col-md-8', 'readonly'=>'1', 'min'=>'0.0', 'step'=>'0.01','style'=>'width: 80% !important;']) !!}
                             </td>
                             <td style="border: 1px solid #dedede" class="text-right">
-                                {!! Form::number("inv_paid[$inv->invoice_id]", number_format($inv->invoice_paid_amount, 2), ['class'=>'form-control input-xs text-right width-100', 'readonly'=>'1', 'min'=>'0.0', 'step'=>'0.01']) !!}
+                              <span class="col-md-2 text-left" style="margin-top: 3.5%;padding-right: 20px;font-size: 15px;">A$</span>
+                                {!! Form::number("inv_paid[$inv->invoice_id]", number_format((float)$inv->invoice_paid_amount, 2,'.',''), ['class'=>'form-control input-xs text-right width-100', 'readonly'=>'1', 'min'=>'0.0', 'step'=>'0.01','style'=>'width: 80% !important;']) !!}
                             </td>
                             <td style="border: 1px solid #dedede" class="text-right darker-bg">
-                                {!! Form::number("due[$inv->invoice_id]", number_format($inv->invoice_due_amount, 2), ['class'=>'form-control input-xs text-right width-100', 'readonly'=>'1', 'min'=>'0.0', 'step'=>'0.01']) !!}
+                              <span class="col-md-2 text-left" style="margin-top: 3.5%;padding-right: 20px;font-size: 15px;">A$</span>
+                                {!! Form::number("due[$inv->invoice_id]", number_format((float)$inv->invoice_due_amount, 2,'.',''), ['class'=>'form-control input-xs text-right width-100', 'readonly'=>'1', 'min'=>'0.0', 'step'=>'0.01','style'=>'width: 80% !important;']) !!}
                                 {!! Form::hidden("$inv->invoice_id", $inv->invoice_due_amount) !!}
                             </td>
                                 <td style="border: 1px solid #dedede" class="text-right">
-                                    {!! Form::number("invoice_$inv->invoice_id", null, ['class'=>'form-control input-xs text-right width-100 aamt', "id"=>"inv_$inv->invoice_id", 'onblur'=>'checkClear(this.value)', 'min'=>'0.0', 'step'=>'0.01']) !!}
+                                  <span class="col-md-2 text-left" style="margin-top: 3.5%;padding-right: 20px;font-size: 15px;">A$</span>
+                                    {!! Form::number("invoice_$inv->invoice_id", null, ['class'=>'form-control input-xs text-right width-100 aamt', "id"=>"inv_$inv->invoice_id", 'onblur'=>'checkClear(this.value)', 'min'=>'0.0', 'step'=>'0.01','style'=>'width: 80% !important;']) !!}
                                 </td>
                                 <td style="border: 1px solid #dedede" class="text-center">
                                     <input type="button" value="Allocate" id="a{{$inv->invoice_id}}" onclick="allocate(this.id)" class="btn btn-primary user-search allocate {{ $inv->office_id==1? "blue": "purple" }}">

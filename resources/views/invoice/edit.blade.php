@@ -40,12 +40,23 @@
                 </thead>
                 <tbody style="border: 1px solid #dedede">
                     <tr>
-                        <td style="border: 1px solid #dedede">{{Form::text('invoice_number', $customer_invoice->invoice_number ,['class' => 'form-control', 'for' => 'invoice_number', 'readonly'=>'true', 'style' => 'background-color: white;'])}}</td>
+                        <td style="border: 1px solid #dedede">
+                          {{Form::text('invoice_number', $customer_invoice->invoice_number ,['class' => 'form-control', 'for' => 'invoice_number', 'readonly'=>'true', 'style' => 'background-color: white;'])}}
+                        </td>
                         <td style="border: 1px solid #dedede">{{Form::text('project_type', $customer_invoice->project_type ,['class' => 'form-control', 'for' => 'project_type', 'style' => 'background-color: white;'])}}</td>
                         <td style="border: 1px solid #dedede">{{Form::text('project_id', $customer_invoice->project_name ,['class' => 'form-control', 'for' => 'project_name', 'style' => 'background-color: white;'])}}</td>
-                        <td style="border: 1px solid #dedede">{{Form::text('project_per_hour_cost', $customer_invoice->project_per_hour_cost ,['class' => 'form-control', 'for' => 'project_name', 'style' => 'background-color: white;'])}}</td>
-                        <td style="border: 1px solid #dedede">{{Form::text('project_estimate_cost', $customer_invoice->project_estimate_cost ,['class' => 'form-control', 'for' => 'project_name', 'style' => 'background-color: white;'])}}</td>
-                        <td style="border: 1px solid #dedede">{{Form::text('project_final_cost', $customer_invoice->project_estimate_cost ,['class' => 'form-control', 'for' => 'project_name', 'id' => 'project_final_cost'])}}</td>
+                        <td style="border: 1px solid #dedede">
+                          <span class="col-md-2 text-left" style="margin-top: 3.5%;padding-right: 20px;font-size: 15px;">A$</span>
+                          {{Form::text('project_per_hour_cost', number_format((float)$customer_invoice->project_per_hour_cost, 2, '.', ''),['class' => 'form-control', 'for' => 'project_name', 'style' => 'background-color: white;width: 75% !important;'])}}
+                        </td>
+                        <td style="border: 1px solid #dedede">
+                          <span class="col-md-2 text-left" style="margin-top: 3.5%;padding-right: 20px;font-size: 15px;">A$</span>
+                          {{Form::text('project_estimate_cost',number_format((float)$customer_invoice->project_estimate_cost, 2, '.', ''),['class' => 'form-control', 'for' => 'project_name', 'style' => 'background-color: white; width: 75% !important;'])}}
+                        </td>
+                        <td style="border: 1px solid #dedede">
+                          <span class="col-md-2 text-left" style="margin-top: 3.5%;padding-right: 20px;font-size: 15px;">A$</span>
+                          {{Form::text('project_final_cost',number_format((float)$customer_invoice->project_estimate_cost, 2, '.', ''),['class' => 'form-control', 'for' => 'project_name', 'id' => 'project_final_cost', 'style' => 'background-color: white;width: 75% !important;'])}}
+                        </td>
                         <td style="border: 1px solid #dedede">{{Form::text('invoice_reference', null ,['class' => 'form-control', 'for' => 'invoice_reference'])}}</td>
                     </tr>
                     <tr>
@@ -55,7 +66,8 @@
                         <td>&nbsp;</td>
                         <td class="text-right" style="border: 1px solid #dedede; text-align: right !important;"><b>Total:</b></td>
                         <td class="text-left" id="invoice_total" style="border: 1px solid #dedede">
-                            {{Form::text('invoice_total', $customer_invoice->project_estimate_cost, ['class'=>'form-control', 'id'=> 'invoice_total'])}}
+                          <span class="col-md-2 text-left" style="margin-top: 3.5%;padding-right: 20px;font-size: 15px;">A$</span>
+                            {{Form::text('invoice_total', number_format((float)$customer_invoice->project_estimate_cost, 2, '.', '') , ['class'=>'form-control', 'id'=> 'invoice_total', 'style' => 'width: 75% !important;'])}}
                         </td>
                         <td>&nbsp;</td>
                     </tr>
@@ -67,7 +79,7 @@
                         <td class="text-right" style="border: 1px solid #dedede; text-align: right !important;"><b>GST:</b></td>
                         <td class="text-left" style="border: 1px solid #dedede; text-align: left !important;">
                             {{Form::hidden('invoice_gst_rate', $customer_invoice->invoice_gst_rate)}}
-                            {{$customer_invoice->invoice_gst_rate}}%
+                            {{number_format((float)$customer_invoice->invoice_gst_rate, 2, '.', '')}}%
                         </td>
                         <td>&nbsp;</td>
                     </tr>
@@ -78,15 +90,16 @@
                         <td>&nbsp;</td>
                         <td class="text-right" style="border: 1px solid #dedede; text-align: right !important;"><b>Grand total:</b></td>
                         <td class="text-left" id="invoice_grand_total" style="border: 1px solid #dedede">
-                            {{Form::text('invoice_grand_total', $customer_invoice->invoice_grand_total, ['class'=>'form-control', 'id'=> 'invoice_grand_total'])}}
+                          <span class="col-md-2 text-left" style="margin-top: 3.5%;padding-right: 20px;font-size: 15px;">A$</span>
+                            {{Form::text('invoice_grand_total',number_format((float)$customer_invoice->invoice_grand_total, 2, '.', '') , ['class'=>'form-control', 'id'=> 'invoice_grand_total', 'style' => 'width: 75% !important;'])}}
                         </td>
                         <td>&nbsp;</td>
                     </tr>
                 </tbody>
             </table>
-            
+
             <div class="row" style="margin-top:2%">
-                
+
                 <div class="col-md-4">
                     {{Form::label('invoice_date', 'Invoice Date')}}
                     {{Form::date('invoice_date', $customer_invoice->invoice_date, ['class' => 'form-control'])}}
@@ -105,9 +118,12 @@
                 </div>
             </div>
             <div class="row" style="margin-top:2%">
+              @php
+                $comment = "Project Cost - Payment Received = Remaining Payment \n ". "A$ "."$customer_invoice->invoice_final_amount \t"." - \t A$ "."$customer_invoice->invoice_paid_amount \t" ." =  A$ "." $customer_invoice->invoice_due_amount";
+              @endphp
                 <div class="col-md-12">
                     {{Form::label('invoice_comments', 'Comments')}}
-                    {{Form::textarea('invoice_comments', null, ['class' => 'form-control', 'for' => 'invoice_comments'])}}
+                    <textarea name="invoice_comments" class="form-control" value="" rows="8" cols="80">{{ltrim($comment)}}</textarea>
                 </div>
             </div>
             <div class="row" style="margin-top: 2%;">

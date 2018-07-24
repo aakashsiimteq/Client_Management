@@ -48,7 +48,7 @@ class InvoiceController extends Controller
         $custom_invoice_number = CustomInvoice::max('custom_invoice_number');
         if($invoice_number == null){
             $invoice_number = "INV101";
-        
+
         }else{
             $invoice_number = (int)(substr($invoice_number,3));
             $invoice_number = $invoice_number + 1;
@@ -56,7 +56,7 @@ class InvoiceController extends Controller
         }
         if($custom_invoice_number == null){
             $custom_invoice_number = "CINV1001";
-        
+
         }else{
             $custom_invoice_number = (int)(substr($custom_invoice_number, 4));
             $custom_invoice_number = $custom_invoice_number + 1;
@@ -130,7 +130,8 @@ class InvoiceController extends Controller
         $customer_invoice = DB::table('invoices')
                      ->leftJoin('projects', 'projects.project_number', '=', 'invoices.project_id')
                      ->leftJoin('customers', 'customers.customer_number', '=', 'invoices.customer_id')
-                     ->where('invoice_id', '=', $id)
+                     ->leftJoin('payment_receives','payment_receives.project_id','=','invoices.project_id')
+                     ->where('invoices.invoice_id', '=', $id)
                      ->first();
         return view('invoice.edit', compact('customer_invoice', 'invoice', 'page_title', 'page_description'));
     }
