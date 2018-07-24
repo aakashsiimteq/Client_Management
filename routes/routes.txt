@@ -1,0 +1,67 @@
++--------+-----------+------------------------------------------------+--------------------------+------------------------------------------------------------------------+--------------+
+| Domain | Method    | URI                                            | Name                     | Action                                                                 | Middleware   |
++--------+-----------+------------------------------------------------+--------------------------+------------------------------------------------------------------------+--------------+
+|        | GET|HEAD  | /                                              |                          | Closure                                                                | web          |
+|        | POST      | admin/custom-invoice                           | custom-invoice.store     | App\Http\Controllers\CustomInvoiceController@store                     | web,auth     |
+|        | GET|HEAD  | admin/custom-invoice                           | custom-invoice.index     | App\Http\Controllers\CustomInvoiceController@index                     | web,auth     |
+|        | GET|HEAD  | admin/custom-invoice/create                    | custom-invoice.create    | App\Http\Controllers\CustomInvoiceController@create                    | web,auth     |
+|        | GET|HEAD  | admin/custom-invoice/{custom_invoice}          | custom-invoice.show      | App\Http\Controllers\CustomInvoiceController@show                      | web,auth     |
+|        | PUT|PATCH | admin/custom-invoice/{custom_invoice}          | custom-invoice.update    | App\Http\Controllers\CustomInvoiceController@update                    | web,auth     |
+|        | DELETE    | admin/custom-invoice/{custom_invoice}          | custom-invoice.destroy   | App\Http\Controllers\CustomInvoiceController@destroy                   | web,auth     |
+|        | GET|HEAD  | admin/custom-invoice/{custom_invoice}/edit     | custom-invoice.edit      | App\Http\Controllers\CustomInvoiceController@edit                      | web,auth     |
+|        | GET|HEAD  | admin/customer                                 | customer.index           | App\Http\Controllers\CustomerController@index                          | web,auth     |
+|        | POST      | admin/customer                                 | customer.store           | App\Http\Controllers\CustomerController@store                          | web,auth     |
+|        | POST      | admin/customer-project                         | customer-project.store   | App\Http\Controllers\ProjectForCustomerController@store                | web,auth     |
+|        | GET|HEAD  | admin/customer-project                         | customer-project.index   | App\Http\Controllers\ProjectForCustomerController@index                | web,auth     |
+|        | GET|HEAD  | admin/customer-project/create                  | customer-project.create  | App\Http\Controllers\ProjectForCustomerController@create               | web,auth     |
+|        | DELETE    | admin/customer-project/{customer_project}      | customer-project.destroy | App\Http\Controllers\ProjectForCustomerController@destroy              | web,auth     |
+|        | PUT|PATCH | admin/customer-project/{customer_project}      | customer-project.update  | App\Http\Controllers\ProjectForCustomerController@update               | web,auth     |
+|        | GET|HEAD  | admin/customer-project/{customer_project}      | customer-project.show    | App\Http\Controllers\ProjectForCustomerController@show                 | web,auth     |
+|        | GET|HEAD  | admin/customer-project/{customer_project}/edit | customer-project.edit    | App\Http\Controllers\ProjectForCustomerController@edit                 | web,auth     |
+|        | GET|HEAD  | admin/customer/create                          | customer.create          | App\Http\Controllers\CustomerController@create                         | web,auth     |
+|        | PUT|PATCH | admin/customer/{customer}                      | customer.update          | App\Http\Controllers\CustomerController@update                         | web,auth     |
+|        | DELETE    | admin/customer/{customer}                      | customer.destroy         | App\Http\Controllers\CustomerController@destroy                        | web,auth     |
+|        | GET|HEAD  | admin/customer/{customer}                      | customer.show            | App\Http\Controllers\CustomerController@show                           | web,auth     |
+|        | GET|HEAD  | admin/customer/{customer}/edit                 | customer.edit            | App\Http\Controllers\CustomerController@edit                           | web,auth     |
+|        | POST      | admin/invoice                                  | invoice.store            | App\Http\Controllers\InvoiceController@store                           | web,auth     |
+|        | GET|HEAD  | admin/invoice                                  | invoice.index            | App\Http\Controllers\InvoiceController@index                           | web,auth     |
+|        | GET|HEAD  | admin/invoice/create                           | invoice.create           | App\Http\Controllers\InvoiceController@create                          | web,auth     |
+|        | GET|HEAD  | admin/invoice/{invoice}                        | invoice.show             | App\Http\Controllers\InvoiceController@show                            | web,auth     |
+|        | PUT|PATCH | admin/invoice/{invoice}                        | invoice.update           | App\Http\Controllers\InvoiceController@update                          | web,auth     |
+|        | DELETE    | admin/invoice/{invoice}                        | invoice.destroy          | App\Http\Controllers\InvoiceController@destroy                         | web,auth     |
+|        | GET|HEAD  | admin/invoice/{invoice}/edit                   | invoice.edit             | App\Http\Controllers\InvoiceController@edit                            | web,auth     |
+|        | POST      | admin/payment-receive                          | payment-receive.store    | App\Http\Controllers\PaymentReceiveController@store                    | web,auth     |
+|        | GET|HEAD  | admin/payment-receive                          | payment-receive.index    | App\Http\Controllers\PaymentReceiveController@index                    | web,auth     |
+|        | GET|HEAD  | admin/payment-receive/create                   | payment-receive.create   | App\Http\Controllers\PaymentReceiveController@create                   | web,auth     |
+|        | GET|HEAD  | admin/payment-receive/{payment_receive}        | payment-receive.show     | App\Http\Controllers\PaymentReceiveController@show                     | web,auth     |
+|        | PUT|PATCH | admin/payment-receive/{payment_receive}        | payment-receive.update   | App\Http\Controllers\PaymentReceiveController@update                   | web,auth     |
+|        | DELETE    | admin/payment-receive/{payment_receive}        | payment-receive.destroy  | App\Http\Controllers\PaymentReceiveController@destroy                  | web,auth     |
+|        | GET|HEAD  | admin/payment-receive/{payment_receive}/edit   | payment-receive.edit     | App\Http\Controllers\PaymentReceiveController@edit                     | web,auth     |
+|        | GET|HEAD  | admin/print                                    |                          | App\Http\Controllers\InvoiceController@getPrintView                    | web,auth     |
+|        | GET|HEAD  | admin/project                                  | project.index            | App\Http\Controllers\ProjectController@index                           | web,auth     |
+|        | POST      | admin/project                                  | project.store            | App\Http\Controllers\ProjectController@store                           | web,auth     |
+|        | GET|HEAD  | admin/project-invoice                          | project-invoice.index    | App\Http\Controllers\InvoiceForProjectController@index                 | web,auth     |
+|        | POST      | admin/project-invoice                          | project-invoice.store    | App\Http\Controllers\InvoiceForProjectController@store                 | web,auth     |
+|        | GET|HEAD  | admin/project-invoice/create                   | project-invoice.create   | App\Http\Controllers\InvoiceForProjectController@create                | web,auth     |
+|        | GET|HEAD  | admin/project-invoice/{project_invoice}        | project-invoice.show     | App\Http\Controllers\InvoiceForProjectController@show                  | web,auth     |
+|        | PUT|PATCH | admin/project-invoice/{project_invoice}        | project-invoice.update   | App\Http\Controllers\InvoiceForProjectController@update                | web,auth     |
+|        | DELETE    | admin/project-invoice/{project_invoice}        | project-invoice.destroy  | App\Http\Controllers\InvoiceForProjectController@destroy               | web,auth     |
+|        | GET|HEAD  | admin/project-invoice/{project_invoice}/edit   | project-invoice.edit     | App\Http\Controllers\InvoiceForProjectController@edit                  | web,auth     |
+|        | GET|HEAD  | admin/project/create                           | project.create           | App\Http\Controllers\ProjectController@create                          | web,auth     |
+|        | PUT|PATCH | admin/project/{project}                        | project.update           | App\Http\Controllers\ProjectController@update                          | web,auth     |
+|        | DELETE    | admin/project/{project}                        | project.destroy          | App\Http\Controllers\ProjectController@destroy                         | web,auth     |
+|        | GET|HEAD  | admin/project/{project}                        | project.show             | App\Http\Controllers\ProjectController@show                            | web,auth     |
+|        | GET|HEAD  | admin/project/{project}/edit                   | project.edit             | App\Http\Controllers\ProjectController@edit                            | web,auth     |
+|        | GET|HEAD  | api/user                                       |                          | Closure                                                                | api,auth:api |
+|        | GET|HEAD  | dashboard                                      | home                     | App\Http\Controllers\HomeController@index                              | web,auth     |
+|        | GET|HEAD  | items                                          |                          | Closure                                                                | web          |
+|        | POST      | login                                          |                          | App\Http\Controllers\Auth\LoginController@login                        | web,guest    |
+|        | GET|HEAD  | login                                          | login                    | App\Http\Controllers\Auth\LoginController@showLoginForm                | web,guest    |
+|        | POST      | logout                                         | logout                   | App\Http\Controllers\Auth\LoginController@logout                       | web          |
+|        | POST      | password/email                                 | password.email           | App\Http\Controllers\Auth\ForgotPasswordController@sendResetLinkEmail  | web,guest    |
+|        | POST      | password/reset                                 |                          | App\Http\Controllers\Auth\ResetPasswordController@reset                | web,guest    |
+|        | GET|HEAD  | password/reset                                 | password.request         | App\Http\Controllers\Auth\ForgotPasswordController@showLinkRequestForm | web,guest    |
+|        | GET|HEAD  | password/reset/{token}                         | password.reset           | App\Http\Controllers\Auth\ResetPasswordController@showResetForm        | web,guest    |
+|        | POST      | register                                       |                          | App\Http\Controllers\Auth\RegisterController@register                  | web,guest    |
+|        | GET|HEAD  | register                                       | register                 | App\Http\Controllers\Auth\RegisterController@showRegistrationForm      | web,guest    |
++--------+-----------+------------------------------------------------+--------------------------+------------------------------------------------------------------------+--------------+

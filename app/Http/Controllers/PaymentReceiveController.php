@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\Invoice;
 use App\PaymentDetail;
 use App\PaymentReceive;
@@ -23,13 +24,15 @@ class PaymentReceiveController extends Controller
         $page_title = 'Payment Receive';
         $page_description = 'Accounts';
 
+        $lookupcustomers = Customer::all()->pluck('customer_name')->toArray();
+
         $invoices = PaymentReceive::with([])
             ->leftJoin('customers as c', 'c.customer_number', '=', 'payment_receives.customer_id')
             ->leftJoin('invoices as iv', 'iv.invoice_id', '=', 'payment_receives.invoice_id')
             ->where('payment_status', '=', 'Pending')
             ->select(['customer_name', 'payment_receives.payment_id','iv.invoice_id','invoice_number', 'invoice_grand_total','iv.created_at', 'invoice_paid_amount', 'invoice_due_amount'])
             ->get();
-        return view('accounts.payrecv.index', compact('page_description', 'page_title', 'invoices'));
+        return view('accounts.payrecv.index', compact('page_description', 'page_title', 'invoices', 'lookupcustomers'));
     }
 
 

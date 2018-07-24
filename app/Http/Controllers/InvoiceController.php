@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Managers\InvoiceManager;
+use App\SearchParamInvoice;
+use App\SearchParam;
+use App\Utils\EloquentUtil;
 use Illuminate\Http\Request;
 use App\Invoice;
 use App\Project;
@@ -13,9 +17,11 @@ use PDF;
 
 class InvoiceController extends Controller
 {
-    public function __construct()
+    private $invoiceManager;
+    public function __construct(InvoiceManager $invoiceManager)
     {
         $this->middleware('auth');
+        $this->invoiceManager = $invoiceManager;
     }
 
     /**
@@ -23,13 +29,23 @@ class InvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        $search_command = $request->get('search');
         $page_title = 'Invoice';
         $page_description = 'Invoice listing';
+        $customers = Customer::all();
+        $cust = $request->has('search_by_customer') ? $request->input('search_by_customer') : null;
+        $status = $request->has('search_by_status') ? $request->input('search_by_status') : null;
+        $date_s = $request->has('search_by_start_date') ? $request->input('search_by_start_date') : null;
+        $date_e = $request->has('search_by_end_date') ? $request->input('search_by_end_date') : null;
+        $lookupcustomers = array();
+        foreach ($customers as $k => $v) {
+            $lookupcustomers[$v->customer_number] = $v->customer_name;
+        }
 
         $invoice_number = Invoice::max('invoice_number');
-
+        $custom_invoice_number = CustomInvoice::max('custom_invoice_number');
         if($invoice_number == null){
             $invoice_number = "INV101";
         
@@ -38,9 +54,6 @@ class InvoiceController extends Controller
             $invoice_number = $invoice_number + 1;
             $invoice_number = "INV".$invoice_number;
         }
-
-        $custom_invoice_number = CustomInvoice::max('custom_invoice_number');
-        
         if($custom_invoice_number == null){
             $custom_invoice_number = "CINV1001";
         
@@ -49,13 +62,22 @@ class InvoiceController extends Controller
             $custom_invoice_number = $custom_invoice_number + 1;
             $custom_invoice_number = "CINV".$custom_invoice_number;
         }
+        if($search_command == 'command_search') {
+            $prepareSearch = new SearchParamInvoice;
+            $prepareSearch->fill($request->all());
 
-        $invoices = DB::table('invoices')
-                    ->leftJoin('customers', 'customers.customer_number', '=', 'invoices.customer_id')
-                    ->leftJoin('projects', 'projects.project_number', '=', 'invoices.project_id')
-                    ->where('invoice_status', '=', 'Open')
-                    ->get();
-        return view('invoice.index', compact('invoices', 'page_title', 'page_description', 'invoice_number', 'custom_invoice_number'));
+            $qry = $this->invoiceManager::getBaseQuery();
+            $preparedSearch = SearchParamInvoice::prepareSearch($qry, $prepareSearch->toArray());
+            $invoices = $preparedSearch->get();
+        } else {
+            $invoices = DB::table('invoices')
+                ->leftJoin('customers', 'customers.customer_number', '=', 'invoices.customer_id')
+                ->leftJoin('projects', 'projects.project_number', '=', 'invoices.project_id')
+                ->where('invoice_status', '=', 'Open')
+                ->get();
+        }
+
+        return view('invoice.index', compact('invoices', 'page_title', 'page_description', 'invoice_number', 'custom_invoice_number', 'lookupcustomers','cust','date_s','date_e','status'));
     }
 
     /**

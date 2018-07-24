@@ -11,4 +11,9 @@ class CustomInvoiceManager
         $status = CustomInvoice::all()->pluck('invoice_status')->toArray();
         return $status;
     }
+
+    public static function getBaseQuery() {
+        $qry = CustomInvoice::with([]);
+        return $qry;
+    }
 }

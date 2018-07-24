@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Customer;
 use App\Http\Managers\CustomInvoiceManager;
+use App\SearchParamCustomInvoice;
 use Illuminate\Http\Request;
 use App\CustomInvoice;
-use App\CustomInvoiceItem;
 use Session;
 use DB;
 
@@ -22,14 +23,33 @@ class CustomInvoiceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+
         $page_title = 'Custom invoice';
         $page_description = 'Custom invoice listing';
+        $search_command = $request->get('search');
+        $cust = $request->has('search_by_customer') ? $request->input('search_by_customer') : null;
+        $status = $request->has('search_by_status') ? $request->input('search_by_status') : null;
+        $date_s = $request->has('search_by_start_date') ? $request->input('search_by_start_date') : null;
+        $date_e = $request->has('search_by_end_date') ? $request->input('search_by_end_date') : null;
+        $customers = CustomInvoice::all();
+        $lookupcustomers = array();
+        foreach ($customers as $k => $v) {
+            $lookupcustomers[$v->custom_customer_name] = $v->custom_customer_name;
+        }
+        if($search_command == 'command_search') {
+            $prepareSearch = new SearchParamCustomInvoice();
+            $prepareSearch->fill($request->all());
+            $qry = $this->customInvoicemanager::getBaseQuery();
+            $preparedSearch = SearchParamCustomInvoice::prepareSearch($qry, $prepareSearch->toArray());
+            $custom_invoices = $preparedSearch->get();
 
-        $custom_invoices = CustomInvoice::all()->where('invoice_status', '=', 'Open');
-
-        return view('invoice.custom', compact('page_title', 'page_description', 'custom_invoices'));
+        } else {
+            $custom_invoices = $this->customInvoicemanager::getBaseQuery();
+            $custom_invoices = $custom_invoices->where('invoice_status', '=', 'Open')->get();
+        }
+        return view('invoice.custom', compact('page_title', 'page_description', 'custom_invoices', 'lookupcustomers', 'cust', 'status', 'date_s', 'date_e'));
     }
 
     /**

@@ -5,6 +5,38 @@
         $count = 0;
     @endphp
     <div class="row">
+        <div class="col-md-4 col-lg-4"></div>
+        <div class="col-md-4 col-lg-4 text-center">
+            {!! Form::open(['route' => 'invoice.index', 'method'=>'GET']) !!}
+            {{Form::hidden('search', 'command_search')}}
+            <div class="row" style="margin-bottom: 5px;">
+                <div class="col-md-12 col-lg-12">
+                    {{Form::select('search_by_customer', $lookupcustomers, $cust,['placeholder'=>'Pick customer', 'class'=>'form-control'])}}
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 5px;">
+                <div class="col-md-12 col-lg-12">
+                    {{Form::select('search_by_status', ['Open'=>'Open','Close'=>'Close','Both'=>'Both'], $status,['placeholder'=>'Select status', 'class'=>'form-control'])}}
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 5px;">
+                <div class="col-md-6 col-lg-6">
+                    {{Form::date('search_by_start_date', $date_s,['class'=>'form-control'])}}
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    {{Form::date('search_by_end_date', $date_e,['class'=>'form-control'])}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    {{Form::submit('Search', ['class'=>'btn btn-primary pull-right'])}}
+                </div>
+            </div>
+            {!! Form::close() !!}
+        </div>
+        <div class="col-md-4 col-lg-4"></div>
+    </div>
+    <div class="row">
         <div class="col-md-3">
             <label for="search_table" class="control-label">Search Invoices</label>
             <input type="text" name="search_table" id="search_table" placeholder="Search Invoices" class="form-control" />

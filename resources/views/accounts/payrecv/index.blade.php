@@ -1,12 +1,37 @@
 @extends('layout.index') @section('title', 'Payment Receive')
 @section('content')
-        <div class="row">
-            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                <a class="btn btn-primary btn-sm pull-right" href="javascript:check()" style="margin-left: 2px;"><i class="fa fa-floppy-o"></i>&nbsp;Receive Payment</a>
-                <a class="btn btn-info btn-sm pull-right" id="rcvbtn" href="javascript:PaymentReceive.makeAdvancePayment()"><i class="fa fa-back"></i>&nbsp;Make Advance Payment</a>
-            </div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <a class="btn btn-primary btn-sm pull-right" href="javascript:check()" style="margin-left: 2px;"><i class="fa fa-floppy-o"></i>&nbsp;Receive Payment</a>
+            <a class="btn btn-info btn-sm pull-right" id="rcvbtn" href="javascript:PaymentReceive.makeAdvancePayment()"><i class="fa fa-back"></i>&nbsp;Make Advance Payment</a>
         </div>
-
+    </div>
+    <div class="row">
+        <div class="col-md-4 col-lg-4"></div>
+        <div class="col-md-4 col-lg-4 text-center">
+            {!! Form::open() !!}
+            <div class="row" style="margin-bottom: 5px;">
+                <div class="col-md-12 col-lg-12">
+                    {{Form::select('search_by_customer', $lookupcustomers, null,['placeholder'=>'Pick customer', 'class'=>'form-control'])}}
+                </div>
+            </div>
+            <div class="row" style="margin-bottom: 5px;">
+                <div class="col-md-6 col-lg-6">
+                    {{Form::text('search_by_invoice_no', null,['placeholder'=>'Invoice no', 'class'=>'form-control'])}}
+                </div>
+                <div class="col-md-6 col-lg-6">
+                    {{Form::select('search_by_status', ['Open'=>'Open','Close'=>'Close','Both'=>'Both'], null,['placeholder'=>'Select status', 'class'=>'form-control'])}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 col-lg-12">
+                    {{Form::submit('Search', ['class'=>'btn btn-primary pull-right'])}}
+                </div>
+            </div>
+            {!! Form::close() !!}
+        </div>
+        <div class="col-md-4 col-lg-4"></div>
+    </div>
     {{ Form::open(['url' => 'admin/payment-receive', 'method' => 'POST', 'name' => 'frmPayRec', 'id' => 'frmPayRec']) }}
     <div id="content" class="panel panel-primary" style="margin-top:40px; padding: 20px 20px;">
         <div class="row">
