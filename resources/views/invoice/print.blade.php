@@ -1,8 +1,8 @@
 @extends('Print._print_header')
 
 @section('page_title')
-    <hr width="70%" />
-    <table width="70%" border="0" cellpadding="0" cellspacing="0" class="table-condensed bg-white table_print" align="center">
+    <hr width="100%" />
+    <table width="100%" border="0" cellpadding="0" cellspacing="0" class="table-condensed bg-white table_print" align="center">
         <br>
         <br>
         <tr>

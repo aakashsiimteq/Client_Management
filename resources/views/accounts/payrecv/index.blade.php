@@ -9,7 +9,8 @@
     <div class="row">
         <div class="col-md-4 col-lg-4"></div>
         <div class="col-md-4 col-lg-4 text-center">
-            {!! Form::open() !!}
+            {!! Form::open(['route'=>'payment-receive.index', 'method'=>'GET']) !!}
+            {{Form::hidden('search', 'command_search')}}
             <div class="row" style="margin-bottom: 5px;">
                 <div class="col-md-12 col-lg-12">
                     {{Form::select('search_by_customer', $lookupcustomers, null,['placeholder'=>'Pick customer', 'class'=>'form-control'])}}
@@ -20,7 +21,7 @@
                     {{Form::text('search_by_invoice_no', null,['placeholder'=>'Invoice no', 'class'=>'form-control'])}}
                 </div>
                 <div class="col-md-6 col-lg-6">
-                    {{Form::select('search_by_status', ['Open'=>'Open','Close'=>'Close','Both'=>'Both'], null,['placeholder'=>'Select status', 'class'=>'form-control'])}}
+                    {{Form::select('search_by_status', ['Pending'=>'Pending','Complete'=>'Complete','Both'=>'Both'], null,['placeholder'=>'Select status', 'class'=>'form-control'])}}
                 </div>
             </div>
             <div class="row">
@@ -32,6 +33,7 @@
         </div>
         <div class="col-md-4 col-lg-4"></div>
     </div>
+    @if(isset($invoices))
     {{ Form::open(['url' => 'admin/payment-receive', 'method' => 'POST', 'name' => 'frmPayRec', 'id' => 'frmPayRec']) }}
     <div id="content" class="panel panel-primary" style="margin-top:40px; padding: 20px 20px;">
         <div class="row">
@@ -114,6 +116,7 @@
         </table>
     </div>
     {{ Form::close() }}
+    @endif
 @endsection
 
 @push('body_scripts')

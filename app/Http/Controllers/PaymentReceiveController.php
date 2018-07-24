@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Customer;
+use App\Http\Managers\PaymentReceiveManager;
 use App\Invoice;
 use App\PaymentDetail;
 use App\PaymentReceive;
+use App\SearchParamPaymentReceive;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use DB;
@@ -13,25 +15,31 @@ use Illuminate\Support\Facades\Session;
 
 class PaymentReceiveController extends Controller
 {
-
-    public function __construct()
+    private $prcvManager;
+    public function __construct(PaymentReceiveManager $paymentReceiveManager)
     {
         $this->middleware('auth');
+        $this->prcvManager = $paymentReceiveManager;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $page_title = 'Payment Receive';
         $page_description = 'Accounts';
-
-        $lookupcustomers = Customer::all()->pluck('customer_name')->toArray();
-
-        $invoices = PaymentReceive::with([])
-            ->leftJoin('customers as c', 'c.customer_number', '=', 'payment_receives.customer_id')
-            ->leftJoin('invoices as iv', 'iv.invoice_id', '=', 'payment_receives.invoice_id')
-            ->where('payment_status', '=', 'Pending')
-            ->select(['customer_name', 'payment_receives.payment_id','iv.invoice_id','invoice_number', 'invoice_grand_total','iv.created_at', 'invoice_paid_amount', 'invoice_due_amount'])
-            ->get();
+        $search_command = $request->get('search');
+        $customers = Customer::all();
+        $lookupcustomers = array();
+        foreach ($customers as $k => $v) {
+            $lookupcustomers[$v->customer_number] = $v->customer_name;
+        }
+        $invoices = null;
+        if($search_command == 'command_search') {
+            $invoices = $this->prcvManager::getBaseQuery();
+            $prepareSearch = new SearchParamPaymentReceive();
+            $prepareSearch->fill($request->all());
+            $preparedSearch = $prepareSearch::prepareSearch($invoices, $prepareSearch);
+            $invoices = $preparedSearch->select(['customer_name', 'payment_receives.payment_id','iv.invoice_id','invoice_number', 'invoice_grand_total','iv.created_at', 'invoice_paid_amount', 'invoice_due_amount'])->get();
+        }
         return view('accounts.payrecv.index', compact('page_description', 'page_title', 'invoices', 'lookupcustomers'));
     }
 
